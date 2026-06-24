@@ -160,8 +160,8 @@ svg.frag{width:100%;height:100%;max-height:580px;}
 .fragcap b{color:var(--accent-br);}
 
 /* ===== WORLD MAP (02) ===== */
-.mapwrap{flex:1;margin-top:6px;display:flex;align-items:center;justify-content:center;min-height:0;position:relative;}
-svg.map{width:100%;height:100%;max-height:488px;}
+.mapwrap{flex:1;margin-top:4px;display:flex;align-items:center;justify-content:center;min-height:0;position:relative;}
+svg.map{width:100%;height:100%;max-height:430px;}
 .map .land{fill:#1B2C5E;stroke:#2C3F78;stroke-width:.5;}
 .map .marc{fill:none;stroke:var(--accent-br);stroke-width:1.4;opacity:.5;}
 .map .mdot{fill:var(--accent-br);stroke:#0E1838;stroke-width:1.5;}
@@ -173,6 +173,18 @@ svg.map{width:100%;height:100%;max-height:488px;}
 .map .hub-lbl{fill:#FF8095;font-family:var(--dp);font-size:14px;font-weight:700;}
 .maplegend{position:absolute;left:4px;bottom:0;display:flex;gap:20px;font-size:14px;color:var(--on-navy-soft);}
 .maplegend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px;vertical-align:-1px;}
+/* 5-level BOM flow strip (02) */
+.bom{display:flex;align-items:stretch;gap:0;margin-top:6px;}
+.bstage{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:13px 15px;}
+.bstage .bl{font-family:var(--dp);font-weight:700;font-size:12px;letter-spacing:.1em;color:var(--accent-br);}
+.bstage .bn{font-family:var(--dp);font-weight:700;font-size:18px;color:#fff;margin-top:4px;}
+.bstage .bc{font-size:13px;color:var(--on-navy-soft);margin-top:7px;line-height:1.4;}
+.bstage.api{border-color:rgba(234,0,44,.5);box-shadow:0 6px 22px rgba(234,0,44,.12);}
+.bstage.api .bl{color:#FF8095;} .bstage.api .bn{color:#FF8095;}
+.barrow{flex:0 0 26px;display:flex;align-items:center;justify-content:center;color:var(--on-navy-soft);font-size:20px;font-weight:700;}
+.bomnote{margin-top:12px;font-size:14.5px;color:var(--on-navy);line-height:1.4;}
+.bomnote b{color:var(--accent-br);}
+.bomnote .lab{font-family:var(--dp);font-weight:700;color:var(--on-navy-soft);letter-spacing:.04em;margin-right:6px;}
 
 /* ===== METHODOLOGY / JOURNEY (06) ===== */
 .method{display:flex;gap:34px;flex:1;margin-top:24px;}
@@ -432,12 +444,18 @@ svg.map{width:100%;height:100%;max-height:488px;}
 </svg>
                 <div class="maplegend"><span><i style="background:var(--red)"></i>단독 API (SK biotek)</span><span><i style="background:#EAF0FB"></i>DP·FP CMO</span><span><i style="background:var(--accent-br)"></i>공급 시장 (10)</span></div>
             </div>
-            <div class="callrow2 reveal d4">
-                <div class="ccard alert"><div class="ct">단독 API CMO</div><div class="cd">SK biotek 1곳이 전 시장 API를 단독 공급 — 단일 의존 리스크</div></div>
-                <div class="ccard"><div class="ct">이중 소싱</div><div class="cd">RSM·DP는 CMO A/B로 이원화 — 관리 포인트 증가</div></div>
-                <div class="ccard"><div class="ct">Common Blend</div><div class="cd">API 40kg → 12.5·25·50mg 배치 동시 생산</div></div>
-                <div class="ccard"><div class="ct">시장별 차등</div><div class="cd">시장마다 공급 단계 상이 (FP 2 · DP 3 · API 5)</div></div>
+            <div class="bom reveal d4">
+                <div class="bstage"><div class="bl">L0 · RSM</div><div class="bn">원료출발물질</div><div class="bc">Lianhe · Wisdom (中) · 이중 소싱<br>YKP1941 3종 호환(택1·조합)</div></div>
+                <div class="barrow">›</div>
+                <div class="bstage api"><div class="bl">L1 · API</div><div class="bn">원료의약품</div><div class="bc">SK biotek (韓) · 전 시장 단독<br>US/EU 합성 · ROW1/CA 코드변환</div></div>
+                <div class="barrow">›</div>
+                <div class="bstage"><div class="bl">L2 · DP</div><div class="bn">정제 (Tablet)</div><div class="bc">Patheon (CA, Primary)<br>Avara (US 전용) · Common Blend</div></div>
+                <div class="barrow">›</div>
+                <div class="bstage"><div class="bl">L3 · Semi-FP</div><div class="bn">반제품</div><div class="bc">Britestock (Patheon)<br>Blister Strip (PCI CA)</div></div>
+                <div class="barrow">›</div>
+                <div class="bstage"><div class="bl">L4 · FP</div><div class="bn">완제품·포장</div><div class="bc">Bottle (Patheon / PCI US)<br>Blister Card (PCI CA)</div></div>
             </div>
+            <div class="bomnote reveal d5"><span class="lab">시장별 차등 공급</span><b>FP 2</b> US·China · <b>DP 3</b> HK·Canada·Israel · <b>API 5</b> EU·Japan·LATAM·MENA·Korea &nbsp;|&nbsp; Bottle은 <b>직접 / Britestock 경유 2경로(택1)</b></div>
         </div>
         <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">02 / <b>11</b></span></footer>
     </section>
