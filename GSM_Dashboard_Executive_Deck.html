@@ -190,6 +190,21 @@ svg.map{width:100%;height:100%;max-height:430px;}
 .bomnote b{color:var(--accent-br);}
 .bomnote .lab{font-family:var(--dp);font-weight:700;color:var(--on-navy-soft);letter-spacing:.04em;margin-right:6px;}
 
+/* ===== VALUE FLOW: scale & complexity (03, dark) ===== */
+.valflow{display:flex;align-items:stretch;justify-content:center;gap:0;margin-top:30px;flex:1;min-height:0;}
+.vstage{flex:1;background:linear-gradient(180deg,rgba(95,214,206,.08),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:30px 26px;display:flex;flex-direction:column;justify-content:center;text-align:center;}
+.vstage.mid{flex:1.1;background:radial-gradient(120% 120% at 50% 28%,#143a72,#0e2a5a);border:2px solid var(--accent-br);box-shadow:0 0 40px rgba(95,214,206,.22);}
+.vstage .vk{font-family:var(--dp);font-weight:700;font-size:13px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-br);margin-bottom:18px;}
+.vstage .vnum{font-family:var(--dp);font-weight:800;font-size:66px;line-height:1;color:var(--accent-br);}
+.vstage.mid .vnum{font-size:58px;color:#fff;}
+.vstage .vnum .u{font-size:28px;font-weight:700;color:var(--accent-br);margin-left:3px;}
+.vstage .vsub{font-size:15px;color:var(--on-navy-soft);margin-top:18px;line-height:1.55;}
+.vstage .vbadge{display:inline-block;margin:18px auto 0;font-family:var(--dp);font-weight:700;font-size:15px;color:#fff;background:rgba(95,214,206,.16);border:1px solid rgba(95,214,206,.5);border-radius:999px;padding:8px 20px;}
+.vstage .vbadge em{font-style:normal;color:var(--accent-br);}
+.varrow{flex:0 0 64px;display:grid;place-items:center;color:var(--accent-br);font-size:34px;font-weight:800;}
+.valnote{margin-top:24px;background:rgba(95,214,206,.10);border-left:4px solid var(--accent-br);border-radius:10px;padding:16px 22px;font-size:16px;color:var(--on-navy);line-height:1.55;}
+.valnote b{color:var(--accent-br);}
+
 /* ===== 3-LAYER FLOW: Data → Logic+BOM → Information (04) ===== */
 .flow3{display:grid;grid-template-columns:1fr 64px 1.2fr 64px 1fr;align-items:stretch;margin-top:22px;flex:1;min-height:0;}
 .flayer{background:var(--mist);border:1px solid var(--line);border-radius:18px;padding:22px 22px;display:flex;flex-direction:column;box-shadow:0 12px 32px rgba(21,34,79,.06);}
@@ -491,14 +506,47 @@ svg.map{width:100%;height:100%;max-height:430px;}
             </div>
             <div class="bomnote reveal d5"><span class="lab">시장별 차등 공급</span><b>FP 2</b> US·China · <b>DP 3</b> HK·Canada·Israel · <b>API 5</b> EU·Japan·LATAM·MENA·Korea &nbsp;|&nbsp; Bottle은 <b>직접 / Britestock 경유 2경로(택1)</b></div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">02 / <b>11</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">02 / <b>12</b></span></footer>
     </section>
 
-    <!-- 03 PAIN POINT (2) — 데이터 파편화 -->
+    <!-- 03 PAIN POINT (scale) — 공급망의 규모와 복잡성 -->
     <section class="slide" data-theme="dark">
         <div class="pad">
             <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>02 · PAIN POINT — 데이터 파편화</div>
+                <div class="kicker reveal"><span class="kbar"></span>02 · PAIN POINT — 공급망의 규모</div>
+                <h2 class="reveal">이 복잡한 공급망을 통해, <span class="accent">막대한 규모</span>가 흐릅니다</h2>
+                <p class="sub reveal">글로벌 CMO 조달부터 파트너 공급까지 — FY2025 기준 공급망의 물동과 규모입니다.</p>
+            </header>
+            <div class="valflow reveal d2">
+                <div class="vstage">
+                    <div class="vk">CMO 조달 · 제조 위탁</div>
+                    <div class="vnum">$18<span class="u">M</span></div>
+                    <div class="vsub">2025 CMO 발주 총액<br>RSM → API → DP → 포장</div>
+                </div>
+                <div class="varrow">→</div>
+                <div class="vstage mid">
+                    <div class="vk">복잡한 다단계 공급망 · 5 TIER</div>
+                    <div class="vnum">60<span class="u">개 자재</span></div>
+                    <div class="vsub">RSM 3 · API 4 · DP 27 · Semi-FP 12 · FP 14</div>
+                    <span class="vbadge">연 <em>약 300 배치</em> 입고</span>
+                </div>
+                <div class="varrow">→</div>
+                <div class="vstage">
+                    <div class="vk">파트너 공급</div>
+                    <div class="vnum">$491<span class="u">M</span></div>
+                    <div class="vsub">2025 파트너 공급 매출<br>글로벌 판매 파트너향</div>
+                </div>
+            </div>
+            <div class="valnote reveal d4"><b>왜 복잡한가 ·</b> 약 $18M 규모의 글로벌 CMO 조달부터 약 $491M 규모의 파트너 공급까지 — BOM 상 60개 자재, 15곳 이상의 거점·파트너가 얽혀 있고, 시장(US·EU·IL·CN·HK·CA·MENA 등)마다 공급 제품과 경로가 달라 이 공급망은 매우 복잡합니다. 대시보드는 이 복잡한 흐름 전체를 한 화면에서 통합 관리합니다.</div>
+        </div>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">03 / <b>12</b></span></footer>
+    </section>
+
+    <!-- 04 PAIN POINT (2) — 데이터 파편화 -->
+    <section class="slide" data-theme="dark">
+        <div class="pad">
+            <header class="shead">
+                <div class="kicker reveal"><span class="kbar"></span>03 · PAIN POINT — 데이터 파편화</div>
                 <h2 class="reveal">데이터가 흩어져, <span class="accent">하나의 View로 볼 수 없습니다</span></h2>
                 <p class="sub reveal">판매·재고·생산·품질·예측 데이터가 시스템마다 따로 존재 — 한 화면으로 모이지 않습니다.</p>
             </header>
@@ -545,14 +593,14 @@ svg.map{width:100%;height:100%;max-height:430px;}
 </svg></div>
             <div class="fragcap reveal d4">→ 매월 <b>수기 취합</b> · 부서마다 <b>다른 기준</b> · 이상은 <b>사후 인지</b></div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">03 / <b>11</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">04 / <b>12</b></span></footer>
     </section>
 
     <!-- 04 SOLUTION (BOM) — 데이터→Logic+BOM→정보 3계층 -->
     <section class="slide">
         <div class="pad">
             <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>03 · SOLUTION — 데이터에서 정보로</div>
+                <div class="kicker reveal"><span class="kbar"></span>04 · SOLUTION — 데이터에서 정보로</div>
                 <h2 class="reveal">데이터는 <span class="accent">3개 계층</span>을 거쳐 정보가 됩니다</h2>
                 <p class="sub reveal">흩어진 원천 데이터(raw)는 그대로는 의미가 없습니다. <b>BOM 마스터</b>와 <b>Rule-based Logic</b> 계층을 통과할 때 비로소 판단 가능한 <b>정보</b>로 바뀝니다.</p>
             </header>
@@ -591,14 +639,14 @@ svg.map{width:100%;height:100%;max-height:430px;}
             </div>
             <div class="flnote reveal d5"><b>핵심</b> — 같은 데이터라도 <b>BOM·규칙 계층</b>을 어떻게 정의하느냐에 따라 정보의 정확도가 결정됩니다. 이 계층이 대시보드의 신뢰성을 좌우합니다.</div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">04 / <b>11</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">05 / <b>12</b></span></footer>
     </section>
 
     <!-- 06 SOLUTION (2) — KPI & RAG -->
     <section class="slide" data-theme="dark">
         <div class="pad">
             <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>04 · SOLUTION — 핵심 KPI &amp; RAG</div>
+                <div class="kicker reveal"><span class="kbar"></span>05 · SOLUTION — 핵심 KPI &amp; RAG</div>
                 <h2 class="reveal">4대 핵심 KPI를 <span class="accent">신호등</span>으로 즉시 판단</h2>
             </header>
             <div class="kpigrid">
@@ -631,14 +679,14 @@ svg.map{width:100%;height:100%;max-height:430px;}
                 <span style="margin-left:auto;color:var(--on-navy-soft)">임계값은 <b>Targets 탭</b>에서 중앙 관리 → 17개 KPI 자동 채점</span>
             </div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">05 / <b>11</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">06 / <b>12</b></span></footer>
     </section>
 
     <!-- 06 구현과정 (1) — 개발 방법 / 여정 -->
     <section class="slide">
         <div class="pad">
             <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>05 · 구현과정 — 개발 방법</div>
+                <div class="kicker reveal"><span class="kbar"></span>06 · 구현과정 — 개발 방법</div>
                 <h2 class="reveal">빌드 없는 <span class="accent">단일 HTML</span> + Excel + AI 반복 개발</h2>
                 <p class="sub reveal">서버·빌드 도구 없이 파일 하나로 동작하고, 데이터는 현업이 익숙한 Excel로 주고받으며, AI 코딩 어시스턴트로 빠르게 반복했습니다.</p>
             </header>
@@ -667,14 +715,14 @@ svg.map{width:100%;height:100%;max-height:430px;}
                 </div>
             </div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">06 / <b>11</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">07 / <b>12</b></span></footer>
     </section>
 
     <!-- 07 구현과정 (2) — 데이터 흐름 -->
     <section class="slide">
         <div class="pad">
             <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>06 · 구현과정 — 데이터 흐름</div>
+                <div class="kicker reveal"><span class="kbar"></span>07 · 구현과정 — 데이터 흐름</div>
                 <h2 class="reveal">SAP 추출부터 화면까지, <span class="accent">자동으로 흐른다</span></h2>
                 <p class="sub reveal">엑셀을 끌어다 놓으면 8개 디텍터가 파일 종류를 인식하고, KPI·RAG가 자동 계산되어 화면에 반영됩니다.</p>
             </header>
@@ -703,14 +751,14 @@ svg.map{width:100%;height:100%;max-height:430px;}
                 </div>
             </div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">07 / <b>11</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">08 / <b>12</b></span></footer>
     </section>
 
     <!-- 08 구현과정 (3) — 기술 아키텍처 -->
     <section class="slide">
         <div class="pad">
             <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>07 · 구현과정 — 기술 아키텍처</div>
+                <div class="kicker reveal"><span class="kbar"></span>08 · 구현과정 — 기술 아키텍처</div>
                 <h2 class="reveal">단일 HTML에서 <span class="accent">단계적으로</span> 확장</h2>
                 <p class="sub reveal">필요에 따라 점진적으로 — 파일 하나(최초) → 무인 적재 local-app(현재) → 정식 배포 3-tier(추후). 데이터는 줄곧 Excel로 주고받습니다.</p>
             </header>
@@ -723,14 +771,14 @@ svg.map{width:100%;height:100%;max-height:430px;}
             </div>
             <div class="evonote reveal d3"><span class="tag">공통</span><b>데이터 입출력</b><span>— 전 단계 공통으로 Excel 업로드/다운로드 · RAG 임계값 관리 · standalone HTML 공유 유지</span></div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">08 / <b>11</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">09 / <b>12</b></span></footer>
     </section>
 
     <!-- 09 대시보드 시연 -->
     <section class="slide" data-theme="dark">
         <div class="pad">
             <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>08 · 대시보드 시연 — LIVE</div>
+                <div class="kicker reveal"><span class="kbar"></span>09 · 대시보드 시연 — LIVE</div>
                 <h2 class="reveal">실데이터 대시보드 <span class="accent">라이브 시연</span></h2>
             </header>
             <div class="demo">
@@ -749,14 +797,14 @@ svg.map{width:100%;height:100%;max-height:430px;}
                 </div>
             </div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">09 / <b>11</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">10 / <b>12</b></span></footer>
     </section>
 
     <!-- 10 추후 계획 -->
     <section class="slide">
         <div class="pad">
             <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>09 · 추후 계획 — 로드맵 &amp; 기대효과</div>
+                <div class="kicker reveal"><span class="kbar"></span>10 · 추후 계획 — 로드맵 &amp; 기대효과</div>
                 <h2 class="reveal">기반은 완성, 이제 <span class="accent">전사 확장</span>으로</h2>
             </header>
             <div class="phases reveal d1">
@@ -775,7 +823,7 @@ svg.map{width:100%;height:100%;max-height:430px;}
                 <span class="extchip">Entra ID 인증</span><span class="extchip">Snowflake (DW)</span><span class="extchip">Power BI</span><span class="extchip">전사 SCM Master Plan 연동</span><span class="extchip">Azure 배포</span>
             </div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">10 / <b>11</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">11 / <b>12</b></span></footer>
     </section>
 
     <!-- 11 마무리 -->
