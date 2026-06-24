@@ -483,7 +483,10 @@ svg.map{width:100%;height:100%;max-height:430px;}
 /* ===== LIVE DEMO (08) ===== */
 .demo{display:flex;gap:30px;flex:1;margin-top:24px;}
 .demo-side{flex:0 0 360px;display:flex;flex-direction:column;gap:14px;}
-.dscreen{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:15px 18px;display:flex;align-items:center;gap:14px;}
+.dscreen{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:15px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:border-color .15s,background .15s,transform .15s;}
+.dscreen:hover{border-color:rgba(95,214,206,.45);}
+.dscreen.on{border-color:var(--accent-br);background:rgba(95,214,206,.16);box-shadow:0 6px 22px rgba(95,214,206,.18);transform:translateX(4px);}
+.dscreen.on .num{color:#fff;}
 .dscreen .num{font-family:var(--dp);font-weight:700;font-size:16px;color:var(--accent-br);width:26px;}
 .dscreen .dn{font-family:var(--dp);font-weight:600;font-size:18px;color:#fff;}
 .dscreen .dd{font-size:14px;color:var(--on-navy-soft);margin-left:auto;}
@@ -872,13 +875,13 @@ svg.map{width:100%;height:100%;max-height:430px;}
             </header>
             <div class="demo">
                 <div class="demo-side reveal d1">
-                    <div class="dscreen"><span class="num">01</span><span class="dn">CEO Cockpit</span><span class="dd">경영 요약</span></div>
-                    <div class="dscreen"><span class="num">02</span><span class="dn">Supply Chain</span><span class="dd">제조 플로우</span></div>
-                    <div class="dscreen"><span class="num">03</span><span class="dn">Inventory</span><span class="dd">유효기한 Aging</span></div>
-                    <div class="dscreen"><span class="num">04</span><span class="dn">Production</span><span class="dd">PR→PO→GR</span></div>
-                    <div class="dscreen"><span class="num">05</span><span class="dn">Quality</span><span class="dd">BRR · CAPA</span></div>
-                    <div class="dscreen"><span class="num">06</span><span class="dn">Targets</span><span class="dd">RAG 임계값</span></div>
-                    <div style="margin-top:auto;font-size:15px;color:var(--on-navy-soft);line-height:1.5">오른쪽은 실제 데이터가 임베드된 대시보드입니다. 발표 시 새 창에서 전체화면으로 드릴다운 시연을 진행합니다.</div>
+                    <div class="dscreen" data-tab="upload"><span class="num">01</span><span class="dn">Data Upload</span><span class="dd">엑셀 적재</span></div>
+                    <div class="dscreen" data-tab="forecast"><span class="num">02</span><span class="dn">Forecast &amp; Planning</span><span class="dd">수요·계획</span></div>
+                    <div class="dscreen" data-tab="sales"><span class="num">03</span><span class="dn">Sales</span><span class="dd">판매·OTIF</span></div>
+                    <div class="dscreen" data-tab="inventory"><span class="num">04</span><span class="dn">Inventory</span><span class="dd">재고일수·Aging</span></div>
+                    <div class="dscreen" data-tab="production"><span class="num">05</span><span class="dn">Production</span><span class="dd">PR→PO→GR·일정</span></div>
+                    <div class="dscreen" data-tab="cockpit"><span class="num">06</span><span class="dn">CEO Cockpit</span><span class="dd">경영 요약</span></div>
+                    <div style="margin-top:auto;font-size:15px;color:var(--on-navy-soft);line-height:1.5">← → 키(또는 왼쪽 항목 클릭)로 발표 순서에 맞춰 오른쪽 대시보드 탭이 함께 전환됩니다.</div>
                 </div>
                 <div class="demo-live reveal d2">
                     <iframe srcdoc='<!DOCTYPE html>
@@ -22243,8 +22246,23 @@ class Deck{
         this.stage=document.getElementById('deckStage');
         this.slides=[...document.querySelectorAll('.slide')];
         this.i=0; this.buildDots(); this.scale();
+        // --- live-demo: step through dashboard tabs in presentation order ---
+        this.demoTabs=['upload','forecast','sales','inventory','production','cockpit'];
+        this.demoIndex=this.slides.findIndex(s=>s.querySelector('.demo-live'));
+        this.demoStep=0;
+        this.demoScreens=this.demoIndex>=0?[...this.slides[this.demoIndex].querySelectorAll('.dscreen')]:[];
+        this.demoScreens.forEach((el,k)=>el.addEventListener('click',ev=>{ev.stopPropagation();this.demoStep=k;this.syncDemoTab();}));
         window.addEventListener('resize',()=>this.scale());
         this.bindNav(); this.show(0);
+    }
+    gotoTab(tab){
+        const fr=document.querySelector('.demo-live iframe'); if(!fr) return;
+        const post=()=>{ try{ const w=fr.contentWindow; if(!w) return; w.postMessage({type:'gsm-nav',tab:tab},'*'); if(typeof w.__gsmGoTab==='function') w.__gsmGoTab(tab); }catch(e){} };
+        post(); setTimeout(post,250); setTimeout(post,800); setTimeout(post,1600);
+    }
+    syncDemoTab(){
+        this.demoScreens.forEach((el,k)=>el.classList.toggle('on',k===this.demoStep));
+        this.gotoTab(this.demoTabs[this.demoStep]);
     }
     scale(){
         const f=Math.min(window.innerWidth/1920,window.innerHeight/1080);
@@ -22257,13 +22275,25 @@ class Deck{
         this.dots=[...d.children];
     }
     show(n){
+        const from=this.i;
         this.i=Math.max(0,Math.min(n,this.slides.length-1));
         this.slides.forEach((s,k)=>{s.classList.toggle('active',k===this.i);s.classList.toggle('visible',k===this.i);});
         this.dots.forEach((d,k)=>d.classList.toggle('on',k===this.i));
         document.getElementById('cur').textContent=this.i+1;
         document.getElementById('progress').style.width=((this.i+1)/this.slides.length*100)+'%';
+        if(this.i===this.demoIndex){
+            this.demoStep=(from>this.demoIndex)?this.demoTabs.length-1:0;
+            this.syncDemoTab();
+        }
     }
-    next(){this.show(this.i+1);} prev(){this.show(this.i-1);}
+    next(){
+        if(this.i===this.demoIndex && this.demoStep<this.demoTabs.length-1){this.demoStep++;this.syncDemoTab();return;}
+        this.show(this.i+1);
+    }
+    prev(){
+        if(this.i===this.demoIndex && this.demoStep>0){this.demoStep--;this.syncDemoTab();return;}
+        this.show(this.i-1);
+    }
     bindNav(){
         document.getElementById('next').onclick=()=>this.next();
         document.getElementById('prev').onclick=()=>this.prev();
@@ -22280,7 +22310,7 @@ class Deck{
         v.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
         v.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>60){dx<0?this.next():this.prev();}x0=null;},{passive:true});
         v.addEventListener('click',e=>{
-            if(e.target.closest('a,button,iframe,[contenteditable="true"],.hud,.edit-toggle,.edit-hotzone'))return;
+            if(e.target.closest('a,button,iframe,[contenteditable="true"],.hud,.edit-toggle,.edit-hotzone,.demo-side'))return;
             if(document.body.classList.contains('editing'))return;
             (e.clientX<window.innerWidth/2)?this.prev():this.next();
         });
