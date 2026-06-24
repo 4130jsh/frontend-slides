@@ -285,6 +285,7 @@ svg.map{width:100%;height:100%;max-height:488px;}
 .evostage.future .es-tag{background:var(--mist-2);color:var(--slate);}
 .evostage h3{font-family:var(--dp);font-weight:800;font-size:26px;color:var(--ink);}
 .evostage p{font-size:16px;color:var(--ink-soft);margin-top:12px;line-height:1.5;flex:1;}
+.evostage p b{color:var(--accent-dk);font-weight:700;}
 .es-note{font-size:14px;color:var(--slate);margin-top:14px;padding-top:12px;border-top:1px solid var(--line);}
 .evoarrow{flex:0 0 50px;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:30px;font-weight:700;}
 .evonote{margin-top:24px;background:var(--navy);color:#fff;border-radius:14px;padding:18px 28px;font-size:17px;display:flex;align-items:center;gap:16px;}
@@ -651,7 +652,7 @@ svg.map{width:100%;height:100%;max-height:488px;}
                 <div class="evoarrow">→</div>
                 <div class="evostage now"><div class="es-tag">현재 · 운영</div><h3>local-app + SQLite</h3><p>Node · chokidar가 폴더(inbox)를 감시 → 앱과 동일한 파싱 로직으로 SQLite에 누적·주입</p><div class="es-note">무인 적재 · 데이터 영속화</div></div>
                 <div class="evoarrow">→</div>
-                <div class="evostage future"><div class="es-tag">추후 · 배포</div><h3>3-tier 배포</h3><p>React + FastAPI + DB로 호스팅·인증·다중 사용자 환경에 정식 배포 (예정)</p><div class="es-note">웹 호스팅 · Teams/SharePoint 임베드 (TBD)</div></div>
+                <div class="evostage future"><div class="es-tag">추후 · 배포</div><h3>3-tier 배포</h3><p>React + FastAPI + <b>Snowflake(DW)</b> 로 호스팅·인증·다중 사용자 환경에 정식 배포 (예정)</p><div class="es-note">웹 호스팅 · Teams/SharePoint 임베드 (TBD)</div></div>
             </div>
             <div class="evonote reveal d3"><span class="tag">공통</span><b>데이터 입출력</b><span>— 전 단계 공통으로 Excel 업로드/다운로드 · RAG 임계값 관리 · standalone HTML 공유 유지</span></div>
         </div>
@@ -694,8 +695,8 @@ svg.map{width:100%;height:100%;max-height:488px;}
             <div class="phases reveal d1">
                 <div class="phase done"><span class="pst">✓ 완료</span><h3>단일 HTML 대시보드</h3><p>11개 관점 · 17 KPI · RAG · Excel I/O · standalone 공유</p></div>
                 <div class="phase prog"><span class="pst">진행 중</span><h3>local-app + SQLite</h3><p>폴더 감시 무인 적재 · 데이터 영속화 · 화면·KPI 고도화</p></div>
-                <div class="phase next"><span class="pst">예정</span><h3>정식 배포 (3-tier)</h3><p>React + FastAPI + DB · 인증 · 다중 사용자 호스팅</p></div>
-                <div class="phase plan"><span class="pst">계획</span><h3>전사 확장</h3><p>Power BI / DWH 연동 · 전사 SCM Master Plan 연계</p></div>
+                <div class="phase next"><span class="pst">예정</span><h3>정식 배포 (3-tier)</h3><p>React + FastAPI + Snowflake(DW) · 인증 · 다중 사용자 호스팅</p></div>
+                <div class="phase plan"><span class="pst">계획</span><h3>전사 확장</h3><p>Snowflake 기반 BI(Power BI) · 전사 SCM Master Plan 연계</p></div>
             </div>
             <div class="valuerow reveal d3">
                 <div class="vpill"><div class="vk">ONE SOURCE</div><div class="vt">전사 단일 데이터</div><div class="vd">중앙 DB로 부서·사용자가 동일 기준을 실시간 공유</div></div>
@@ -704,7 +705,7 @@ svg.map{width:100%;height:100%;max-height:488px;}
             </div>
             <div class="extstrip reveal d4">
                 <span class="el">확장 기반</span>
-                <span class="extchip">Entra ID 인증</span><span class="extchip">PostgreSQL</span><span class="extchip">Power BI / DWH</span><span class="extchip">전사 SCM Master Plan 연동</span><span class="extchip">Azure Static Web Apps 배포</span>
+                <span class="extchip">Entra ID 인증</span><span class="extchip">Snowflake (DW)</span><span class="extchip">Power BI</span><span class="extchip">전사 SCM Master Plan 연동</span><span class="extchip">Azure 배포</span>
             </div>
         </div>
         <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">10 / <b>11</b></span></footer>
