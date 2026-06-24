@@ -350,6 +350,48 @@ svg.map{width:100%;height:100%;max-height:430px;}
 .evocard p{font-size:16px;color:var(--on-navy-soft);line-height:1.55;}
 .evocard p b{color:var(--accent-br);font-weight:700;}
 .evocard p .sub2{color:var(--slate);font-size:14px;}
+/* architecture expansion diagram (09) */
+.archstack{flex:1;display:flex;flex-direction:column;min-height:0;margin-top:16px;}
+.archdiag{flex:1;min-height:0;}
+.archdiag svg{width:100%;height:100%;}
+.ad-box{fill:var(--mist);stroke:var(--line);stroke-width:1.5;}
+.ad-db{fill:var(--navy);stroke:var(--navy-3);stroke-width:1.5;}
+.ad-dbtop{fill:#27407c;stroke:var(--navy-3);stroke-width:1.5;}
+.ad-be{fill:#E9F7F5;stroke:var(--accent);stroke-width:2;}
+.ad-fe{fill:var(--navy);stroke:var(--accent);stroke-width:2.5;}
+.ad-t{font-family:var(--dp);font-weight:700;font-size:21px;fill:var(--ink);}
+.ad-tt{font-family:var(--dp);font-weight:700;font-size:21px;fill:var(--accent-dk);}
+.ad-tw{font-family:var(--dp);font-weight:700;font-size:23px;fill:#fff;}
+.ad-s{font-family:var(--kr);font-size:14px;fill:var(--ink-soft);}
+.ad-sw{font-family:var(--kr);font-size:14px;fill:var(--on-navy-soft);}
+.ad-arrow{fill:none;stroke:var(--accent);stroke-width:2.4;}
+.ad-badge{fill:rgba(95,214,206,.16);stroke:var(--accent-br);stroke-width:1.2;}
+.ad-badget{font-family:var(--dp);font-weight:700;font-size:15px;fill:var(--accent-br);}
+.ad-cap{font-family:var(--dp);font-weight:700;font-size:13px;letter-spacing:.08em;fill:var(--slate);}
+.adcap{margin-top:12px;font-size:15.5px;color:var(--ink-soft);line-height:1.5;}
+.adcap b{color:var(--accent-dk);font-weight:700;}
+/* slide-6 transformation example (data → logic+master → info) */
+.xform{display:grid;grid-template-columns:1fr 54px 1.12fr 54px 1fr;align-items:stretch;margin-top:22px;flex:1;min-height:0;}
+.xcol{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:20px 20px;display:flex;flex-direction:column;}
+.xcol.engine{background:radial-gradient(120% 120% at 50% 18%,#143a72,#0e2a5a);border:2px solid var(--accent-br);box-shadow:0 0 36px rgba(95,214,206,.18);}
+.xcol.out{border-color:rgba(95,214,206,.4);justify-content:center;text-align:center;}
+.xh{font-family:var(--kr);font-size:13.5px;color:var(--on-navy-soft);letter-spacing:.06em;margin-bottom:14px;}
+.xh .xn{display:block;font-family:var(--dp);font-size:21px;color:#fff;font-weight:800;margin-bottom:3px;}
+.xh.eng .xn{color:var(--accent-br);}
+.xchip{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:11px 14px;margin-top:10px;}
+.xchip:first-of-type{margin-top:0;}
+.xchip b{font-size:16px;color:#fff;font-weight:700;}
+.xchip span{display:block;font-size:12.5px;color:var(--on-navy-soft);margin-top:3px;}
+.xcol.engine .xchip{background:rgba(95,214,206,.08);border-color:rgba(95,214,206,.38);}
+.xplus{text-align:center;font-family:var(--dp);font-weight:800;font-size:22px;color:var(--accent-br);margin:9px 0;line-height:.6;}
+.xarrow{display:grid;place-items:center;color:var(--accent-br);font-size:32px;font-weight:800;}
+.xkname{font-family:var(--dp);font-weight:700;font-size:19px;color:var(--on-navy-soft);}
+.xval{font-family:var(--dp);font-weight:800;font-size:66px;color:var(--accent-br);line-height:1;margin:10px 0 16px;}
+.xval small{font-size:24px;color:var(--on-navy-soft);margin-left:5px;font-family:var(--kr);font-weight:500;}
+.xmean{font-size:15px;color:var(--on-navy);margin-top:16px;line-height:1.45;}
+.xnote{margin-top:20px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:15px;color:var(--on-navy);}
+.xnote .lead{font-family:var(--dp);font-weight:700;color:#fff;}
+.xnote i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:7px;vertical-align:-1px;}
 
 /* ===== LIVE DEMO (08) ===== */
 .demo{display:flex;gap:30px;flex:1;margin-top:24px;}
@@ -652,38 +694,33 @@ svg.map{width:100%;height:100%;max-height:430px;}
     <section class="slide" data-theme="dark">
         <div class="pad">
             <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>05 · SOLUTION — 핵심 KPI &amp; RAG</div>
-                <h2 class="reveal">4대 핵심 KPI를 <span class="accent">신호등</span>으로 즉시 판단</h2>
+                <div class="kicker reveal"><span class="kbar"></span>05 · SOLUTION — 데이터의 정보화 (예시)</div>
+                <h2 class="reveal">복수의 데이터를 <span class="accent">보고 싶은 정보</span>로 전환합니다</h2>
+                <p class="sub reveal">정해진 <b>로직(공식)</b>과 <b>마스터데이터(BOM)</b>에 따라 흩어진 raw 데이터가 의미 있는 KPI로 계산됩니다 — 예: <b>완제품 재고 일수</b>.</p>
             </header>
-            <div class="kpigrid">
-                <div class="kpic reveal d1">
-                    <div class="kh"><div><div class="kname">정시 정량 납품</div><div class="keng">OTIF %</div></div><span class="ragpill na"><span class="pd"></span>N/A · 집계 전</span></div>
-                    <div class="kval">— <small>목표 ≥ 98%</small></div>
-                    <div class="kmeta"><div><span>공식</span><b>정시 납품 수량 ÷ 총 수량</b></div><div><span>소스</span><b>ZSDBPR0330</b></div></div>
+            <div class="xform reveal d2">
+                <div class="xcol">
+                    <div class="xh"><span class="xn">복수의 데이터</span>INPUT · raw 값</div>
+                    <div class="xchip"><b>창고 재고 수량</b><span>MB52 · 단계별 재고</span></div>
+                    <div class="xchip"><b>일평균 소요 (ADU)</b><span>수요예측 · 출고 실적(MB51)</span></div>
+                    <div class="xchip"><b>제품 · 단계 구분</b><span>완제품(FP) 필터</span></div>
                 </div>
-                <div class="kpic reveal d2">
-                    <div class="kh"><div><div class="kname">판매 계획 정확도</div><div class="keng">Sales Plan vs Actual %</div></div><span class="ragpill amber"><span class="pd"></span>AMBER · 주의</span></div>
-                    <div class="kval">92.3<small>% · 변동 −4.3%</small></div>
-                    <div class="kmeta"><div><span>목표</span><b>≥ 90%</b></div><div><span>소스</span><b>Sales Plan + ZSDBPR0330</b></div></div>
+                <div class="xarrow">→</div>
+                <div class="xcol engine">
+                    <div class="xh eng"><span class="xn">전환</span>로직 + 마스터데이터</div>
+                    <div class="xchip"><b>마스터데이터 (BOM)</b><span>제품·단계 매핑 · 단위 전환계수</span></div>
+                    <div class="xplus">＋</div>
+                    <div class="xchip"><b>정해진 로직 (공식)</b><span>재고 수량 ÷ 일평균 소요(ADU)</span></div>
                 </div>
-                <div class="kpic reveal d3">
-                    <div class="kh"><div><div class="kname">완제품 재고 일수</div><div class="keng">FG Days of Supply</div></div><span class="ragpill amber"><span class="pd"></span>AMBER · 주의</span></div>
-                    <div class="kval">38<small>일 · 목표 45–75일</small></div>
-                    <div class="kmeta"><div><span>공식</span><b>재고 수량 ÷ 일평균 소요(ADU)</b></div><div><span>소스</span><b>MB52 + 수요예측</b></div></div>
-                </div>
-                <div class="kpic reveal d4">
-                    <div class="kh"><div><div class="kname">CMO 일정 달성율</div><div class="keng">Schedule Attainment %</div></div><span class="ragpill amber"><span class="pd"></span>AMBER · 주의</span></div>
-                    <div class="kval">91.5<small>% · 목표 ≥ 95%</small></div>
-                    <div class="kmeta"><div><span>공식</span><b>정시 입고 배치 ÷ 총 배치</b></div><div><span>소스</span><b>ZMMBPR0030 + MB51</b></div></div>
+                <div class="xarrow">→</div>
+                <div class="xcol out">
+                    <div class="xkname">완제품 재고 일수</div>
+                    <div class="xval">38<small>일</small></div>
+                    <span class="ragpill amber"><span class="pd"></span>AMBER · 목표 45–75일</span>
+                    <div class="xmean">→ 결품 위험 구간 · 보충 발주 검토 필요</div>
                 </div>
             </div>
-            <div class="raglegend reveal d5">
-                <span><i style="background:var(--rag-green)"></i>Green · 목표 달성</span>
-                <span><i style="background:var(--rag-amber)"></i>Amber · 경고(주의 구간)</span>
-                <span><i style="background:var(--rag-red)"></i>Red · 미달</span>
-                <span><i style="background:var(--rag-na)"></i>N/A · 집계 전</span>
-                <span style="margin-left:auto;color:var(--on-navy-soft)">임계값은 <b>Targets 탭</b>에서 중앙 관리 → 17개 KPI 자동 채점</span>
-            </div>
+            <div class="xnote reveal d5"><span class="lead">동일 방식으로 17개 KPI 자동 산출</span><span><i style="background:var(--rag-green)"></i>Green</span><span><i style="background:var(--rag-amber)"></i>Amber</span><span><i style="background:var(--rag-red)"></i>Red</span><span><i style="background:var(--rag-na)"></i>N/A</span><span style="margin-left:auto;color:var(--on-navy-soft)">로직·임계값은 <b style="color:#fff">Targets 탭</b>에서 중앙 관리</span></div>
         </div>
         <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">06 / <b>11</b></span></footer>
     </section>
@@ -799,11 +836,45 @@ svg.map{width:100%;height:100%;max-height:430px;}
                 <div class="evoarrow">→</div>
                 <div class="evostage now"><div class="es-tag">현재 · 운영</div><h3>local-app + SQLite</h3><p>Node · chokidar가 폴더(inbox)를 감시 → 앱과 동일한 파싱 로직으로 SQLite에 누적·주입</p><div class="es-note">무인 적재 · 데이터 영속화</div></div>
                 <div class="evoarrow">→</div>
-                <div class="evostage future"><div class="es-tag">추후 · 통합 플랫폼</div><h3>Frontend · Backend · DB</h3><p><b>Frontend(React)</b> + <b>Backend(FastAPI)</b> + <b>통합 DB</b> 로 호스팅·인증·다중 사용자 환경에 정식 배포 (예정)</p><div class="es-note">웹 호스팅 · 다중 사용자 권한 관리</div></div>
+                <div class="evostage future"><div class="es-tag">추후 · 통합 플랫폼</div><h3>Frontend · Backend · DB</h3><p><b>Frontend</b> — 화면·시각화·드릴다운 등 사용자 상호작용<br><b>Backend</b> — 데이터 정합·KPI/RAG 로직 처리·인증·API 제공<br><b>통합 DB</b> — 전사 단일 데이터 저장</p><div class="es-note">웹 호스팅 · 다중 사용자 권한 관리 (예정)</div></div>
             </div>
-            <div class="evorow reveal d3">
-                <div class="evocard"><span class="tag">확장 방향</span><p>본부 내에서 개발 중인 <b>여러 모델의 DB를 통합 DB로 합치고</b>, Frontend에 화면·지표를 <b>지속적으로 추가</b>하며 대시보드를 확장해 나갑니다.</p></div>
-                <div class="evocard"><span class="tag">데이터 입출력</span><p>수기 Excel 업로드에서 → <b>데이터 입력 자동화</b> 및 <b>본부 내 여러 모델로부터 데이터 자동 전송·수신</b>으로 전환합니다. <span class="sub2">(Excel 입출력은 보조 수단으로 유지)</span></p></div>
+            <div class="archstack reveal d3">
+                <div class="archdiag">
+                    <svg viewBox="0 0 1440 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="확장 방향과 데이터 입출력 도식 — 여러 모델·자동수집·Excel이 통합 DB로 모여 Backend를 거쳐 Frontend 대시보드로, 화면을 지속 확장">
+                        <defs><marker id="adah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#2C9A8F"/></marker></defs>
+                        <text class="ad-cap" x="171" y="9">데이터 입출력 (INPUT)</text>
+                        <text class="ad-cap" x="1217" y="9" text-anchor="middle">확장 (EXPANSION)</text>
+                        <rect class="ad-box" x="6" y="16" width="330" height="72" rx="12"/>
+                        <text class="ad-t" x="26" y="50">본부 내 여러 모델</text>
+                        <text class="ad-s" x="26" y="72">수요예측·원가·품질 등 모델 DB 전송·수신</text>
+                        <rect class="ad-box" x="6" y="116" width="330" height="72" rx="12"/>
+                        <text class="ad-t" x="26" y="150">자동 데이터 수집</text>
+                        <text class="ad-s" x="26" y="172">SAP 추출 등 입력 자동화</text>
+                        <rect class="ad-box" x="6" y="216" width="330" height="72" rx="12"/>
+                        <text class="ad-t" x="26" y="250">Excel 업로드</text>
+                        <text class="ad-s" x="26" y="272">보조 수단 (수기)</text>
+                        <path class="ad-arrow" d="M336 52 C 392 52 382 150 426 150" marker-end="url(#adah)"/>
+                        <path class="ad-arrow" d="M336 152 L 426 152" marker-end="url(#adah)"/>
+                        <path class="ad-arrow" d="M336 252 C 392 252 382 156 426 153" marker-end="url(#adah)"/>
+                        <rect class="ad-db" x="438" y="90" width="210" height="124"/>
+                        <ellipse class="ad-db" cx="543" cy="214" rx="105" ry="15"/>
+                        <ellipse class="ad-dbtop" cx="543" cy="90" rx="105" ry="15"/>
+                        <text class="ad-tw" x="543" y="150" text-anchor="middle">통합 DB</text>
+                        <text class="ad-sw" x="543" y="174" text-anchor="middle">여러 모델 DB 통합</text>
+                        <path class="ad-arrow" d="M650 152 L 724 152" marker-end="url(#adah)"/>
+                        <rect class="ad-be" x="730" y="98" width="200" height="108" rx="12"/>
+                        <text class="ad-tt" x="830" y="138" text-anchor="middle">Backend</text>
+                        <text class="ad-s" x="830" y="162" text-anchor="middle">정합 · KPI/RAG 로직</text>
+                        <text class="ad-s" x="830" y="182" text-anchor="middle">인증 · API 제공</text>
+                        <path class="ad-arrow" d="M932 152 L 1006 152" marker-end="url(#adah)"/>
+                        <rect class="ad-fe" x="1012" y="80" width="422" height="144" rx="14"/>
+                        <text class="ad-tw" x="1040" y="132">Frontend · 대시보드</text>
+                        <text class="ad-sw" x="1040" y="160">화면·시각화·드릴다운</text>
+                        <rect class="ad-badge" x="1040" y="178" width="248" height="30" rx="15"/>
+                        <text class="ad-badget" x="1164" y="198" text-anchor="middle">＋ 화면·지표 지속 추가</text>
+                    </svg>
+                </div>
+                <div class="adcap"><b>데이터 입출력</b> — 본부 내 여러 모델·자동 수집으로 데이터를 모으고(Excel은 보조) · <b>확장</b> — 통합 DB로 합쳐 Frontend에 화면·지표를 지속 추가합니다.</div>
             </div>
         </div>
         <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">10 / <b>11</b></span></footer>
