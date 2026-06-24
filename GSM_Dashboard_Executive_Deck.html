@@ -344,6 +344,12 @@ svg.map{width:100%;height:100%;max-height:430px;}
 .evonote{margin-top:24px;background:var(--navy);color:#fff;border-radius:14px;padding:18px 28px;font-size:17px;display:flex;align-items:center;gap:16px;}
 .evonote .tag{font-family:var(--dp);font-weight:700;font-size:14px;letter-spacing:.06em;background:var(--accent);color:#fff;padding:6px 14px;border-radius:8px;white-space:nowrap;}
 .evonote span{color:var(--on-navy-soft);} .evonote b{color:#fff;}
+.evorow{display:flex;gap:18px;margin-top:22px;}
+.evocard{flex:1;background:var(--navy);color:#fff;border-radius:14px;padding:18px 24px;}
+.evocard .tag{font-family:var(--dp);font-weight:700;font-size:13.5px;letter-spacing:.06em;background:var(--accent);color:#fff;padding:5px 13px;border-radius:8px;display:inline-block;margin-bottom:12px;}
+.evocard p{font-size:16px;color:var(--on-navy-soft);line-height:1.55;}
+.evocard p b{color:var(--accent-br);font-weight:700;}
+.evocard p .sub2{color:var(--slate);font-size:14px;}
 
 /* ===== LIVE DEMO (08) ===== */
 .demo{display:flex;gap:30px;flex:1;margin-top:24px;}
@@ -506,7 +512,7 @@ svg.map{width:100%;height:100%;max-height:430px;}
             </div>
             <div class="bomnote reveal d5"><span class="lab">시장별 차등 공급</span><b>FP 2</b> US·China · <b>DP 3</b> HK·Canada·Israel · <b>API 5</b> EU·Japan·LATAM·MENA·Korea &nbsp;|&nbsp; Bottle은 <b>직접 / Britestock 경유 2경로(택1)</b></div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">02 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">02 / <b>11</b></span></footer>
     </section>
 
     <!-- 03 PAIN POINT (scale) — 공급망의 규모와 복잡성 -->
@@ -539,7 +545,7 @@ svg.map{width:100%;height:100%;max-height:430px;}
             </div>
             <div class="valnote reveal d4"><b>왜 복잡한가 ·</b> 약 $18M 규모의 글로벌 CMO 조달부터 약 $491M 규모의 파트너 공급까지 — BOM 상 60개 자재, 15곳 이상의 거점·파트너가 얽혀 있고, 시장(US·EU·IL·CN·HK·CA·MENA 등)마다 공급 제품과 경로가 달라 이 공급망은 매우 복잡합니다. 대시보드는 이 복잡한 흐름 전체를 한 화면에서 통합 관리합니다.</div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">03 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">03 / <b>11</b></span></footer>
     </section>
 
     <!-- 04 PAIN POINT (2) — 데이터 파편화 -->
@@ -593,7 +599,7 @@ svg.map{width:100%;height:100%;max-height:430px;}
 </svg></div>
             <div class="fragcap reveal d4">→ 매월 <b>수기 취합</b> · 부서마다 <b>다른 기준</b> · 이상은 <b>사후 인지</b></div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">04 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">04 / <b>11</b></span></footer>
     </section>
 
     <!-- 04 SOLUTION (BOM) — 데이터→Logic+BOM→정보 3계층 -->
@@ -639,7 +645,7 @@ svg.map{width:100%;height:100%;max-height:430px;}
             </div>
             <div class="flnote reveal d5"><b>핵심</b> — 같은 데이터라도 <b>BOM·규칙 계층</b>을 어떻게 정의하느냐에 따라 정보의 정확도가 결정됩니다. 이 계층이 대시보드의 신뢰성을 좌우합니다.</div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">05 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">05 / <b>11</b></span></footer>
     </section>
 
     <!-- 06 SOLUTION (2) — KPI & RAG -->
@@ -679,7 +685,7 @@ svg.map{width:100%;height:100%;max-height:430px;}
                 <span style="margin-left:auto;color:var(--on-navy-soft)">임계값은 <b>Targets 탭</b>에서 중앙 관리 → 17개 KPI 자동 채점</span>
             </div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">06 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">06 / <b>11</b></span></footer>
     </section>
 
     <!-- 06 구현과정 (1) — 개발 방법 / 여정 -->
@@ -715,7 +721,7 @@ svg.map{width:100%;height:100%;max-height:430px;}
                 </div>
             </div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">07 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">07 / <b>11</b></span></footer>
     </section>
 
     <!-- 07 구현과정 (2) — 데이터 흐름 -->
@@ -751,34 +757,14 @@ svg.map{width:100%;height:100%;max-height:430px;}
                 </div>
             </div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">08 / <b>12</b></span></footer>
-    </section>
-
-    <!-- 08 구현과정 (3) — 기술 아키텍처 -->
-    <section class="slide">
-        <div class="pad">
-            <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>08 · 구현과정 — 기술 아키텍처</div>
-                <h2 class="reveal">단일 HTML에서 <span class="accent">단계적으로</span> 확장</h2>
-                <p class="sub reveal">필요에 따라 점진적으로 — 파일 하나(최초) → 무인 적재 local-app(현재) → 정식 배포 3-tier(추후). 데이터는 줄곧 Excel로 주고받습니다.</p>
-            </header>
-            <div class="evo reveal d2">
-                <div class="evostage past"><div class="es-tag">최초 · MVP</div><h3>단일 HTML</h3><p>React(CDN·babel) · Tailwind · Recharts · SheetJS · localStorage — 빌드 도구 없이 파일 하나로 실행·공유</p><div class="es-note">서버·설치 불필요 · 빠른 반복</div></div>
-                <div class="evoarrow">→</div>
-                <div class="evostage now"><div class="es-tag">현재 · 운영</div><h3>local-app + SQLite</h3><p>Node · chokidar가 폴더(inbox)를 감시 → 앱과 동일한 파싱 로직으로 SQLite에 누적·주입</p><div class="es-note">무인 적재 · 데이터 영속화</div></div>
-                <div class="evoarrow">→</div>
-                <div class="evostage future"><div class="es-tag">추후 · 배포</div><h3>3-tier 배포</h3><p>React + FastAPI + <b>Snowflake(DW)</b> 로 호스팅·인증·다중 사용자 환경에 정식 배포 (예정)</p><div class="es-note">웹 호스팅 · Teams/SharePoint 임베드 (TBD)</div></div>
-            </div>
-            <div class="evonote reveal d3"><span class="tag">공통</span><b>데이터 입출력</b><span>— 전 단계 공통으로 Excel 업로드/다운로드 · RAG 임계값 관리 · standalone HTML 공유 유지</span></div>
-        </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">09 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">08 / <b>11</b></span></footer>
     </section>
 
     <!-- 09 대시보드 시연 -->
     <section class="slide" data-theme="dark">
         <div class="pad">
             <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>09 · 대시보드 시연 — LIVE</div>
+                <div class="kicker reveal"><span class="kbar"></span>08 · 대시보드 시연 — LIVE</div>
                 <h2 class="reveal">실데이터 대시보드 <span class="accent">라이브 시연</span></h2>
             </header>
             <div class="demo">
@@ -797,33 +783,30 @@ svg.map{width:100%;height:100%;max-height:430px;}
                 </div>
             </div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">10 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">09 / <b>11</b></span></footer>
     </section>
 
-    <!-- 10 추후 계획 -->
+    <!-- 10 아키텍처 & 향후 확장 -->
     <section class="slide">
         <div class="pad">
             <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>10 · 추후 계획 — 로드맵 &amp; 기대효과</div>
-                <h2 class="reveal">기반은 완성, 이제 <span class="accent">전사 확장</span>으로</h2>
+                <div class="kicker reveal"><span class="kbar"></span>09 · 아키텍처 &amp; 향후 확장</div>
+                <h2 class="reveal">단일 HTML에서 <span class="accent">통합 플랫폼</span>으로 확장</h2>
+                <p class="sub reveal">필요에 따라 점진적으로 — 파일 하나(최초) → 무인 적재 local-app(현재) → Frontend·Backend·통합 DB 정식 배포(추후). 입력 자동화와 본부 내 모델 연계로 데이터가 한 곳에 모입니다.</p>
             </header>
-            <div class="phases reveal d1">
-                <div class="phase done"><span class="pst">✓ 완료</span><h3>단일 HTML 대시보드</h3><p>11개 관점 · 17 KPI · RAG · Excel I/O · standalone 공유</p></div>
-                <div class="phase prog"><span class="pst">진행 중</span><h3>local-app + SQLite</h3><p>폴더 감시 무인 적재 · 데이터 영속화 · 화면·KPI 고도화</p></div>
-                <div class="phase next"><span class="pst">예정</span><h3>정식 배포 (3-tier)</h3><p>React + FastAPI + Snowflake(DW) · 인증 · 다중 사용자 호스팅</p></div>
-                <div class="phase plan"><span class="pst">계획</span><h3>전사 확장</h3><p>Snowflake 기반 BI(Power BI) · 전사 SCM Master Plan 연계</p></div>
+            <div class="evo reveal d2">
+                <div class="evostage past"><div class="es-tag">최초 · MVP</div><h3>단일 HTML</h3><p>React(CDN·babel) · Tailwind · Recharts · SheetJS · localStorage — 빌드 도구 없이 파일 하나로 실행·공유</p><div class="es-note">서버·설치 불필요 · 빠른 반복</div></div>
+                <div class="evoarrow">→</div>
+                <div class="evostage now"><div class="es-tag">현재 · 운영</div><h3>local-app + SQLite</h3><p>Node · chokidar가 폴더(inbox)를 감시 → 앱과 동일한 파싱 로직으로 SQLite에 누적·주입</p><div class="es-note">무인 적재 · 데이터 영속화</div></div>
+                <div class="evoarrow">→</div>
+                <div class="evostage future"><div class="es-tag">추후 · 통합 플랫폼</div><h3>Frontend · Backend · DB</h3><p><b>Frontend(React)</b> + <b>Backend(FastAPI)</b> + <b>통합 DB</b> 로 호스팅·인증·다중 사용자 환경에 정식 배포 (예정)</p><div class="es-note">웹 호스팅 · 다중 사용자 권한 관리</div></div>
             </div>
-            <div class="valuerow reveal d3">
-                <div class="vpill"><div class="vk">ONE SOURCE</div><div class="vt">전사 단일 데이터</div><div class="vd">중앙 DB로 부서·사용자가 동일 기준을 실시간 공유</div></div>
-                <div class="vpill"><div class="vk">SPEED</div><div class="vt">의사결정 속도 ↑</div><div class="vd">KPI 자동 RAG로 현황 파악·판단을 즉시화</div></div>
-                <div class="vpill"><div class="vk">PROACTIVE</div><div class="vt">선제적 리스크 대응</div><div class="vd">재고·유효기한·일정 이상을 조기에 감지</div></div>
-            </div>
-            <div class="extstrip reveal d4">
-                <span class="el">확장 기반</span>
-                <span class="extchip">Entra ID 인증</span><span class="extchip">Snowflake (DW)</span><span class="extchip">Power BI</span><span class="extchip">전사 SCM Master Plan 연동</span><span class="extchip">Azure 배포</span>
+            <div class="evorow reveal d3">
+                <div class="evocard"><span class="tag">확장 방향</span><p>본부 내에서 개발 중인 <b>여러 모델의 DB를 통합 DB로 합치고</b>, Frontend에 화면·지표를 <b>지속적으로 추가</b>하며 대시보드를 확장해 나갑니다.</p></div>
+                <div class="evocard"><span class="tag">데이터 입출력</span><p>수기 Excel 업로드에서 → <b>데이터 입력 자동화</b> 및 <b>본부 내 여러 모델로부터 데이터 자동 전송·수신</b>으로 전환합니다. <span class="sub2">(Excel 입출력은 보조 수단으로 유지)</span></p></div>
             </div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">11 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">10 / <b>11</b></span></footer>
     </section>
 
     <!-- 11 마무리 -->
@@ -834,7 +817,7 @@ svg.map{width:100%;height:100%;max-height:430px;}
             <div class="takes">
                 <div class="take reveal d1"><div class="tn">01</div><div class="tt">복잡도를 가시화</div><div class="td">10시장·7CMO·5단계 BOM의 공급망을 한 화면에서 조망</div></div>
                 <div class="take reveal d2"><div class="tn">02</div><div class="tt">신호등으로 판단</div><div class="td">17개 KPI를 RAG로 자동 채점 — 이상을 즉시 식별·선제 대응</div></div>
-                <div class="take reveal d3"><div class="tn">03</div><div class="tt">전사 확장 기반</div><div class="td">3-tier 재설계로 다중 사용자·BI·SCM 연동까지 확장</div></div>
+                <div class="take reveal d3"><div class="tn">03</div><div class="tt">전사 확장 기반</div><div class="td">Frontend·Backend·통합 DB로 다중 사용자·본부 모델 연동까지 확장</div></div>
             </div>
             <div class="close-foot reveal d4">
                 <span class="qa">Q &amp; A</span><span class="ln"></span>
