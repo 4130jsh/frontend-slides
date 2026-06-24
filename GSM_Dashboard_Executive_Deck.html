@@ -308,6 +308,37 @@ svg.map{width:100%;height:100%;max-height:430px;}
 .dchip{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 18px;}
 .dchip .dn{font-family:var(--dp);font-weight:700;font-size:26px;color:var(--ink);line-height:1;}
 .dchip .dl{font-size:14.5px;color:var(--slate);margin-top:6px;}
+/* ===== MERGED IMPLEMENTATION (07): excel→dashboard + dev journey ===== */
+.seclabel{font-family:var(--dp);font-weight:700;font-size:15px;letter-spacing:.03em;color:var(--accent-dk);margin:4px 0 10px;}
+.seclabel.t2{margin-top:18px;}
+.hwf{display:flex;align-items:stretch;gap:0;flex:1;min-height:0;}
+.hwf-up{flex:0 0 290px;background:var(--mist);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.hwf-xls{width:70px;height:70px;border-radius:16px;background:#1f8a52;color:#fff;font-family:var(--dp);font-weight:800;font-size:17px;display:grid;place-items:center;margin-bottom:16px;box-shadow:0 10px 22px rgba(31,138,82,.32);}
+.hwf-t{font-family:var(--dp);font-weight:700;font-size:21px;color:var(--ink);}
+.hwf-s{font-size:14.5px;color:var(--ink-soft);margin-top:7px;line-height:1.45;}
+.hwf-ar{flex:0 0 188px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--accent-dk);}
+.hwf-ar span{font-size:44px;font-weight:800;line-height:1;}
+.hwf-ar em{font-style:normal;font-family:var(--dp);font-weight:700;font-size:14.5px;margin-top:10px;text-align:center;color:var(--ink-soft);line-height:1.35;}
+.hwf-scr{flex:1;background:var(--navy);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 16px 40px rgba(21,34,79,.22);}
+.scr-top{display:flex;align-items:center;gap:7px;padding:13px 18px;background:rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.1);}
+.scr-top i{width:11px;height:11px;border-radius:50%;display:inline-block;}
+.scr-top i.r{background:#ff5f57;}.scr-top i.a{background:#febc2e;}.scr-top i.g{background:#28c840;}
+.scr-ttl{margin-left:10px;font-family:var(--dp);font-weight:700;font-size:14.5px;color:var(--on-navy-soft);}
+.scr-body{flex:1;padding:18px 20px;display:flex;flex-direction:column;gap:14px;min-height:0;}
+.scr-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.ktile{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;}
+.ktile b{font-family:var(--dp);font-weight:700;font-size:15px;color:#fff;}
+.ktile i{width:14px;height:14px;border-radius:50%;display:inline-block;}
+.ktile.g i{background:var(--rag-green);}.ktile.a i{background:var(--rag-amber);}.ktile.r i{background:var(--rag-red);}
+.scr-chart{flex:1;display:flex;align-items:flex-end;gap:14px;min-height:78px;}
+.scr-chart span{flex:1;background:linear-gradient(180deg,var(--accent-br),var(--accent));border-radius:6px 6px 0 0;}
+.scr-foot{padding:11px 18px;background:rgba(95,214,206,.12);border-top:1px solid rgba(255,255,255,.1);font-family:var(--dp);font-weight:700;font-size:14.5px;color:var(--accent-br);text-align:center;}
+.jrow{display:flex;align-items:stretch;gap:0;}
+.jcard{flex:1;background:var(--mist);border:1px solid var(--line);border-radius:14px;border-top:4px solid var(--accent);padding:18px 22px;}
+.jc-n{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--dp);font-weight:800;font-size:17px;display:grid;place-items:center;margin-bottom:12px;}
+.jc-t{font-family:var(--dp);font-weight:700;font-size:19px;color:var(--ink);}
+.jc-d{font-size:15px;color:var(--ink-soft);margin-top:8px;line-height:1.5;}
+.jc-ar{flex:0 0 44px;display:grid;place-items:center;color:var(--accent);font-size:26px;font-weight:800;}
 
 /* ===== ARCHITECTURE (07) ===== */
 .archtbl{margin-top:26px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--mist);}
@@ -601,7 +632,7 @@ svg.map{width:100%;height:100%;max-height:430px;}
             </div>
             <div class="bomnote reveal d5"><span class="lab">시장별 차등 공급</span><b>FP 2</b> US·China · <b>DP 3</b> HK·Canada·Israel · <b>API 5</b> EU·Japan·LATAM·MENA·Korea &nbsp;|&nbsp; Bottle은 <b>직접 / Britestock 경유 2경로(택1)</b></div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">02 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">02 / <b>11</b></span></footer>
     </section>
 
     <!-- 03 PAIN POINT (scale) — 공급망의 규모와 복잡성 -->
@@ -634,7 +665,7 @@ svg.map{width:100%;height:100%;max-height:430px;}
             </div>
             <div class="valnote reveal d4"><b>왜 복잡한가 ·</b> 약 $18M 규모의 글로벌 CMO 조달부터 약 $491M 규모의 파트너 공급까지 — BOM 상 60개 자재, 15곳 이상의 거점·파트너가 얽혀 있고, 시장(US·EU·IL·CN·HK·CA·MENA 등)마다 공급 제품과 경로가 달라 이 공급망은 매우 복잡합니다. 대시보드는 이 복잡한 흐름 전체를 한 화면에서 통합 관리합니다.</div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">03 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">03 / <b>11</b></span></footer>
     </section>
 
     <!-- 04 PAIN POINT (2) — 데이터 파편화 -->
@@ -688,7 +719,7 @@ svg.map{width:100%;height:100%;max-height:430px;}
 </svg></div>
             <div class="fragcap reveal d4">→ 매월 <b>수기 취합</b> · 부서마다 <b>다른 기준</b> · 이상은 <b>사후 인지</b></div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">04 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">04 / <b>11</b></span></footer>
     </section>
 
     <!-- 04 SOLUTION (BOM) — 데이터→Logic+BOM→정보 3계층 -->
@@ -734,7 +765,7 @@ svg.map{width:100%;height:100%;max-height:430px;}
             </div>
             <div class="flnote reveal d5"><b>핵심</b> — 같은 데이터라도 <b>BOM·규칙 계층</b>을 어떻게 정의하느냐에 따라 정보의 정확도가 결정됩니다. 이 계층이 대시보드의 신뢰성을 좌우합니다.</div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">05 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">05 / <b>11</b></span></footer>
     </section>
 
     <!-- 06 SOLUTION (2) — KPI & RAG -->
@@ -789,86 +820,51 @@ svg.map{width:100%;height:100%;max-height:430px;}
             </div>
             <div class="xnote reveal d5"><span class="lead">동일 방식으로 17개 KPI 자동 산출</span><span><i style="background:var(--rag-green)"></i>Green</span><span><i style="background:var(--rag-amber)"></i>Amber</span><span><i style="background:var(--rag-red)"></i>Red</span><span><i style="background:var(--rag-na)"></i>N/A</span><span style="margin-left:auto;color:var(--on-navy-soft)">로직·임계값은 <b style="color:#fff">Targets 탭</b>에서 중앙 관리</span></div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">06 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">06 / <b>11</b></span></footer>
     </section>
 
-    <!-- 06 구현과정 (1) — 개발 방법 / 여정 -->
+    <!-- 06 구현과정 — 개발 & 동작 (7+8 통합) -->
     <section class="slide">
         <div class="pad">
             <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>06 · 구현과정 — 개발 방법</div>
-                <h2 class="reveal">빌드 없는 <span class="accent">단일 HTML</span> + Excel + AI 반복 개발</h2>
-                <p class="sub reveal">서버·빌드 도구 없이 파일 하나로 동작하고, 데이터는 현업이 익숙한 Excel로 주고받으며, AI 코딩 어시스턴트로 빠르게 반복했습니다.</p>
+                <div class="kicker reveal"><span class="kbar"></span>06 · 구현과정 — 개발 &amp; 동작</div>
+                <h2 class="reveal">엑셀 업로드로 바로 보고, <span class="accent">AI 반복</span>으로 완성</h2>
+                <p class="sub reveal">엑셀 파일을 올리면 대시보드 화면에 정보가 바로 출력됩니다. 이 대시보드는 Pain point에서 출발해 AI와 반복하며 만들었습니다.</p>
             </header>
-            <div class="method">
-                <div class="mcol left reveal d2">
-                    <div class="mtag">핵심 접근</div>
-                    <div class="mbanner">“빌드 과정 없는 <b>단일 HTML React 앱</b> + <b>Excel</b>로 주고받는 데이터 + <b>AI</b>로 반복 개발”</div>
-                    <div class="mstack">
-                        <span>React (CDN·babel)</span><span>Tailwind</span><span>Recharts</span><span>SheetJS · Excel</span><span>localStorage</span><span>선택: local-app · Node+SQLite</span>
-                    </div>
-                    <ul class="mprinc">
-                        <li><b>데이터 모델(Excel 시트) 먼저</b>, 화면은 그 위에</li>
-                        <li><b>스키마 주도 Data I/O</b> — 업로드·다운로드·템플릿을 한 정의에서 자동 생성</li>
-                        <li><b>파싱 로직 1벌</b> 유지 + RAG·Targets 중앙 관리</li>
-                    </ul>
+            <div class="seclabel">&#9312; 어떻게 동작하나 — 엑셀 업로드 &#8594; 대시보드 정보 출력</div>
+            <div class="hwf reveal d2">
+                <div class="hwf-up">
+                    <div class="hwf-xls">XLSX</div>
+                    <div class="hwf-t">엑셀 파일 업로드</div>
+                    <div class="hwf-s">SAP 추출·현업 시트를<br>드래그 &amp; 드롭</div>
                 </div>
-                <div class="mcol right reveal d3">
-                    <div class="mtag">개발 여정 (맨바닥 → 공유)</div>
-                    <div class="journey">
-                        <div class="jstep done"><div class="jn">1</div><div class="jb"><div class="jt">정보 설계</div><div class="jd">대시보드가 답할 질문 3~5개 정의 → 탭(요약+상세) 구성</div></div></div>
-                        <div class="jstep done"><div class="jn">2</div><div class="jb"><div class="jt">데이터 모델 (★ 가장 중요)</div><div class="jd">화면보다 먼저 Excel 시트·컬럼을 설계</div></div></div>
-                        <div class="jstep done"><div class="jn">3</div><div class="jb"><div class="jt">단일 HTML 골격 + Excel I/O</div><div class="jd">CDN 스크립트·localStorage로 즉시 동작 → SheetJS로 업/다운로드 배선</div></div></div>
-                        <div class="jstep done"><div class="jn">4</div><div class="jb"><div class="jt">탭·차트 + RAG·Targets</div><div class="jd">Recharts로 요약→상세 확장, Green/Amber/Red 임계값 조정</div></div></div>
-                        <div class="jstep now"><div class="jn">5</div><div class="jb"><div class="jt">검증 · 공유</div><div class="jd">실데이터 검증 후 standalone HTML(데이터 내장)로 공유 · 배포는 추후 과제</div></div></div>
+                <div class="hwf-ar"><span>&#8594;</span><em>자동 인식 ·<br>KPI/RAG 계산</em></div>
+                <div class="hwf-scr">
+                    <div class="scr-top"><i class="r"></i><i class="a"></i><i class="g"></i><span class="scr-ttl">GSM Dashboard</span></div>
+                    <div class="scr-body">
+                        <div class="scr-kpis"><div class="ktile g"><b>OTIF</b><i></i></div><div class="ktile a"><b>재고 일수</b><i></i></div><div class="ktile g"><b>CMO 일정</b><i></i></div></div>
+                        <div class="scr-chart"><span style="height:45%"></span><span style="height:72%"></span><span style="height:58%"></span><span style="height:88%"></span><span style="height:64%"></span><span style="height:50%"></span></div>
                     </div>
+                    <div class="scr-foot">대시보드 화면에 정보 출력 · 17 KPI · RAG 신호등</div>
                 </div>
+            </div>
+            <div class="seclabel t2">&#9313; 어떻게 만들었나 — 개발 여정</div>
+            <div class="jrow reveal d4">
+                <div class="jcard"><div class="jc-n">1</div><div class="jc-t">Pain Point 확인</div><div class="jc-d">공급망 복잡성·데이터 파편화 — 한 화면에서 볼 수 없는 문제를 정의</div></div>
+                <div class="jc-ar">&#8594;</div>
+                <div class="jcard"><div class="jc-n">2</div><div class="jc-t">AI로 MVP 솔루션</div><div class="jc-d">&ldquo;이 Pain point를 해결할 대시보드를 만들어줘&rdquo; &#8594; AI가 첫 MVP를 제공</div></div>
+                <div class="jc-ar">&#8594;</div>
+                <div class="jcard"><div class="jc-n">3</div><div class="jc-t">AI + Trial &amp; Error 개선</div><div class="jc-d">반복하며 대시보드 구성·방식과 출력 정보의 신뢰도를 지속 개선</div></div>
             </div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">07 / <b>12</b></span></footer>
-    </section>
-
-    <!-- 07 구현과정 (2) — 데이터 흐름 -->
-    <section class="slide">
-        <div class="pad">
-            <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>07 · 구현과정 — 데이터 흐름</div>
-                <h2 class="reveal">SAP 추출부터 화면까지, <span class="accent">자동으로 흐른다</span></h2>
-                <p class="sub reveal">엑셀을 끌어다 놓으면 8개 디텍터가 파일 종류를 인식하고, KPI·RAG가 자동 계산되어 화면에 반영됩니다.</p>
-            </header>
-            <div class="pipe reveal d2">
-                <div class="pnode"><div class="pi">SOURCE</div><div class="ph">SAP Export</div><div class="pp">엑셀 (T-code 추출)</div></div>
-                <div class="parrow">›</div>
-                <div class="pnode"><div class="pi">INGEST</div><div class="ph">업로드</div><div class="pp">폴더 드롭 · 드래그</div></div>
-                <div class="parrow">›</div>
-                <div class="pnode core"><div class="pi">DETECT</div><div class="ph">8개 디텍터</div><div class="pp">자동 인식 · 파싱 · 미리보기</div></div>
-                <div class="parrow">›</div>
-                <div class="pnode core"><div class="pi">COMPUTE</div><div class="ph">KPI · RAG</div><div class="pp">17개 KPI 자동 채점</div></div>
-                <div class="parrow">›</div>
-                <div class="pnode out"><div class="pi">OUTPUT</div><div class="ph">대시보드</div><div class="pp">13개 탭 · 신호등</div></div>
-            </div>
-            <div class="scalebox reveal d4">
-                <div class="sbh">실제 적재 데이터 규모 · Apr 2026 <span class="tot">합계 ≈ 12,700 행</span></div>
-                <div class="scalechips">
-                    <div class="dchip"><div class="dn">8,055</div><div class="dl">LSI 판매 · MB51</div></div>
-                    <div class="dchip"><div class="dn">2,536</div><div class="dl">GR 입고 · MB51</div></div>
-                    <div class="dchip"><div class="dn">1,317</div><div class="dl">COGS 원가 · ZCOCMR3051</div></div>
-                    <div class="dchip"><div class="dn">256</div><div class="dl">Shelf Life · ZMMBPR1000</div></div>
-                    <div class="dchip"><div class="dn">255</div><div class="dl">창고 재고 · MB52</div></div>
-                    <div class="dchip"><div class="dn">145</div><div class="dl">판매주문 · ZSDBPR0330</div></div>
-                    <div class="dchip"><div class="dn">128</div><div class="dl">PR · ZMMBPR0030</div></div>
-                    <div class="dchip"><div class="dn">8</div><div class="dl">수요예측 시장</div></div>
-                </div>
-            </div>
-        </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">08 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">07 / <b>11</b></span></footer>
     </section>
 
     <!-- 09 대시보드 시연 -->
     <section class="slide" data-theme="dark">
         <div class="pad">
             <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>08 · 대시보드 시연 — LIVE</div>
+                <div class="kicker reveal"><span class="kbar"></span>07 · 대시보드 시연 — LIVE</div>
                 <h2 class="reveal">실데이터 대시보드 <span class="accent">라이브 시연</span></h2>
             </header>
             <div class="demo">
@@ -887,14 +883,14 @@ svg.map{width:100%;height:100%;max-height:430px;}
                 </div>
             </div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">09 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">08 / <b>11</b></span></footer>
     </section>
 
     <!-- 10 아키텍처 & 향후 확장 -->
     <section class="slide">
         <div class="pad">
             <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>09 · 아키텍처 &amp; 향후 확장</div>
+                <div class="kicker reveal"><span class="kbar"></span>08 · 아키텍처 &amp; 향후 확장</div>
                 <h2 class="reveal">단일 HTML에서 <span class="accent">통합 플랫폼</span>으로 확장</h2>
                 <p class="sub reveal">필요에 따라 점진적으로 — 파일 하나(최초) → 무인 적재 local-app(현재) → Frontend·Backend·통합 DB 정식 배포(추후). 입력 자동화와 본부 내 모델 연계로 데이터가 한 곳에 모입니다.</p>
             </header>
@@ -907,14 +903,14 @@ svg.map{width:100%;height:100%;max-height:430px;}
             </div>
             <div class="evonote reveal d3"><span class="tag">데이터 입출력</span><span>수기 Excel → <b>입력 자동화</b> 및 <b>본부 내 여러 모델로부터 데이터 자동 전송·수신</b>으로 전환 — Excel은 보조 수단으로 유지</span></div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">10 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">09 / <b>11</b></span></footer>
     </section>
 
     <!-- 11 장기 플랜 — 통합 플랫폼 아키텍처 -->
     <section class="slide">
         <div class="pad">
             <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>10 · 장기 플랜 — 통합 플랫폼</div>
+                <div class="kicker reveal"><span class="kbar"></span>09 · 장기 플랜 — 통합 플랫폼</div>
                 <h2 class="reveal">여러 모델을 <span class="accent">하나의 플랫폼</span>으로 통합</h2>
                 <p class="sub reveal">본부 내 여러 모델이 각자 <b>Backend·DB</b>를 갖고 독립적으로 개발되더라도, 통합 레이어로 연계해 <b>전사 단일 Frontend(대시보드 포털)</b>로 제공합니다.</p>
             </header>
@@ -932,7 +928,7 @@ svg.map{width:100%;height:100%;max-height:430px;}
                 <div class="ltp-front"><b>전사 통합 Frontend · 단일 대시보드 포털</b><span>다중 사용자 · 권한 관리 · 화면·지표 지속 확장</span></div>
             </div>
         </div>
-        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">11 / <b>12</b></span></footer>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">10 / <b>11</b></span></footer>
     </section>
 
     <!-- 11 마무리 -->
