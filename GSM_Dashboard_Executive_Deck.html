@@ -449,27 +449,26 @@ svg.map{width:100%;height:100%;max-height:430px;}
 .cf-lbl{font-family:var(--dp);font-weight:700;font-size:12px;fill:var(--accent-br);letter-spacing:.1em;}
 .cf-arrow{fill:none;stroke:var(--accent-br);stroke-width:2.2;}
 .cf-darrow{fill:none;stroke:rgba(95,214,206,.5);stroke-width:1.6;stroke-dasharray:5 5;}
-/* long-term plan: multi-model integration (11) */
-.ltp{flex:1;display:flex;flex-direction:column;justify-content:space-between;min-height:0;margin-top:18px;}
+/* 본부 내 계획: 여러 모델 → 하나의 통합 View (10) */
+.ltp{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;margin-top:14px;}
+.ltp-cap{font-family:var(--dp);font-weight:700;font-size:15px;color:var(--accent-dk);margin-bottom:12px;}
 .ltp-models{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
-.lmodel{background:var(--mist);border:1px solid var(--line);border-radius:14px;padding:16px 16px;display:flex;flex-direction:column;}
-.lmodel.cur{border-color:var(--accent);box-shadow:0 10px 26px rgba(44,154,143,.16);}
-.lmodel.add{border-style:dashed;background:transparent;align-items:center;justify-content:center;text-align:center;}
-.lm-h{font-family:var(--dp);font-weight:700;font-size:16.5px;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:8px;}
-.lm-h em{font-style:normal;font-family:var(--kr);font-size:11px;font-weight:700;color:var(--accent-dk);background:var(--accent-soft);padding:2px 8px;border-radius:6px;}
-.lm-parts{display:flex;gap:8px;margin-top:14px;}
-.lm-parts span{flex:1;text-align:center;font-family:var(--dp);font-weight:700;font-size:13.5px;padding:9px 0;border-radius:9px;}
-.lm-be{background:#E9F7F5;color:var(--accent-dk);border:1px solid rgba(44,154,143,.35);}
-.lm-db{background:var(--navy);color:#fff;}
-.lmodel.add .lm-h{font-size:16px;color:var(--slate);}
-.lm-sub{font-size:12.5px;color:var(--slate);margin-top:7px;}
-.ltp-flow{text-align:center;font-family:var(--dp);font-weight:700;font-size:14px;letter-spacing:.04em;color:var(--accent-dk);padding:8px 0;}
-.ltp-integ{background:linear-gradient(180deg,#F1FBF9,#E6F6F3);border:2px solid var(--accent);border-radius:14px;padding:16px;text-align:center;}
-.ltp-integ b{font-family:var(--dp);font-weight:800;font-size:20px;color:var(--ink);}
-.ltp-integ span{font-family:var(--kr);font-size:14px;color:var(--ink-soft);margin-left:8px;}
-.ltp-front{background:var(--navy);color:#fff;border-radius:14px;padding:17px;text-align:center;}
-.ltp-front b{font-family:var(--dp);font-weight:800;font-size:21px;color:#fff;}
-.ltp-front span{display:block;font-family:var(--kr);font-weight:500;font-size:14px;color:var(--on-navy-soft);margin-top:5px;}
+.lmodel{background:var(--mist);border:1px solid var(--line);border-radius:14px;padding:18px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.lmodel.add{border-style:dashed;background:transparent;}
+.lm-ico{display:flex;align-items:flex-end;gap:4px;height:30px;margin-bottom:13px;}
+.lm-ico span{width:7px;border-radius:2px;background:var(--accent);}
+.lm-ico span:nth-child(1){height:13px;}.lm-ico span:nth-child(2){height:28px;}.lm-ico span:nth-child(3){height:20px;}
+.lm-plus{font-family:var(--dp);font-weight:800;font-size:30px;color:var(--slate);height:30px;line-height:30px;margin-bottom:13px;}
+.lm-name{font-family:var(--dp);font-weight:700;font-size:18px;color:var(--ink);}
+.lm-stat{margin-top:9px;font-family:var(--dp);font-weight:700;font-size:12px;letter-spacing:.03em;color:var(--accent-dk);background:var(--accent-soft);padding:3px 13px;border-radius:999px;}
+.lmodel.add .lm-name{color:var(--slate);}
+.lmodel.add .lm-stat{color:var(--slate);background:var(--mist-2);}
+.ltp-flow{text-align:center;font-family:var(--dp);font-weight:700;font-size:14.5px;letter-spacing:.03em;color:var(--accent-dk);padding:15px 0;}
+.ltp-view{background:var(--navy);border-radius:16px;padding:20px 26px;box-shadow:0 16px 40px rgba(21,34,79,.22);}
+.ltp-view-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:15px;}
+.ltp-view-h b{font-family:var(--dp);font-weight:800;font-size:22px;color:#fff;}
+.ltp-view-h span{font-family:var(--kr);font-size:14.5px;color:var(--on-navy-soft);}
+.ltp-view-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
 
 /* ===== LIVE DEMO (08) ===== */
 .demo{display:flex;gap:30px;flex:1;margin-top:24px;}
@@ -906,26 +905,33 @@ svg.map{width:100%;height:100%;max-height:430px;}
         <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">09 / <b>11</b></span></footer>
     </section>
 
-    <!-- 11 장기 플랜 — 통합 플랫폼 아키텍처 -->
+    <!-- 10 본부 내 계획 — 여러 모델 데이터를 하나의 View로 -->
     <section class="slide">
         <div class="pad">
             <header class="shead">
-                <div class="kicker reveal"><span class="kbar"></span>09 · 장기 플랜 — 통합 플랫폼</div>
-                <h2 class="reveal">여러 모델을 <span class="accent">하나의 플랫폼</span>으로 통합</h2>
-                <p class="sub reveal">본부 내 여러 모델이 각자 <b>Backend·DB</b>를 갖고 독립적으로 개발되더라도, 통합 레이어로 연계해 <b>전사 단일 Frontend(대시보드 포털)</b>로 제공합니다.</p>
+                <div class="kicker reveal"><span class="kbar"></span>09 · 본부 내 계획 — 통합 View</div>
+                <h2 class="reveal">본부 내 여러 모델의 데이터를 <span class="accent">하나의 View</span>로</h2>
+                <p class="sub reveal">본부 안에서 여러 모델이 개발되고 있습니다. 이 모델들로부터 수집되는 데이터를 하나의 대시보드 View로 모아, 한 화면에서 보여주는 방향으로 발전시키겠습니다.</p>
             </header>
             <div class="ltp reveal d2">
+                <div class="ltp-cap">본부 내 개발 중인 여러 모델</div>
                 <div class="ltp-models">
-                    <div class="lmodel cur"><div class="lm-h">GSM 대시보드<em>현재</em></div><div class="lm-parts"><span class="lm-be">Backend</span><span class="lm-db">DB</span></div></div>
-                    <div class="lmodel"><div class="lm-h">수요예측 모델</div><div class="lm-parts"><span class="lm-be">Backend</span><span class="lm-db">DB</span></div></div>
-                    <div class="lmodel"><div class="lm-h">원가·관세 모델</div><div class="lm-parts"><span class="lm-be">Backend</span><span class="lm-db">DB</span></div></div>
-                    <div class="lmodel"><div class="lm-h">품질 모델</div><div class="lm-parts"><span class="lm-be">Backend</span><span class="lm-db">DB</span></div></div>
-                    <div class="lmodel add"><div class="lm-h">＋ 향후 모델</div><div class="lm-sub">본부 내 신규 모델 지속 추가</div></div>
+                    <div class="lmodel"><div class="lm-ico"><span></span><span></span><span></span></div><div class="lm-name">모델 A</div><div class="lm-stat">개발 중</div></div>
+                    <div class="lmodel"><div class="lm-ico"><span></span><span></span><span></span></div><div class="lm-name">모델 B</div><div class="lm-stat">개발 중</div></div>
+                    <div class="lmodel"><div class="lm-ico"><span></span><span></span><span></span></div><div class="lm-name">모델 C</div><div class="lm-stat">개발 중</div></div>
+                    <div class="lmodel"><div class="lm-ico"><span></span><span></span><span></span></div><div class="lm-name">모델 D</div><div class="lm-stat">개발 중</div></div>
+                    <div class="lmodel add"><div class="lm-plus">&#43;</div><div class="lm-name">더 많은 모델</div><div class="lm-stat">예정</div></div>
                 </div>
-                <div class="ltp-flow">&#9660; &nbsp; API · 데이터 연계 (각 모델의 Backend·DB &#8594; 통합) &nbsp; &#9660;</div>
-                <div class="ltp-integ"><b>통합 레이어</b><span>데이터 표준화 · API 연계 · 통합 DB</span></div>
-                <div class="ltp-flow">&#9660;</div>
-                <div class="ltp-front"><b>전사 통합 Frontend · 단일 대시보드 포털</b><span>다중 사용자 · 권한 관리 · 화면·지표 지속 확장</span></div>
+                <div class="ltp-flow">&#9660; &nbsp; 각 모델에서 수집되는 데이터를 한곳에 &nbsp; &#9660;</div>
+                <div class="ltp-view">
+                    <div class="ltp-view-h"><b>하나의 통합 View · 본부 GSM 대시보드</b><span>여러 모델의 데이터를 한 화면에서 조망</span></div>
+                    <div class="ltp-view-kpis">
+                        <div class="ktile g"><b>모델 A 지표</b><i></i></div>
+                        <div class="ktile a"><b>모델 B 지표</b><i></i></div>
+                        <div class="ktile g"><b>모델 C 지표</b><i></i></div>
+                        <div class="ktile g"><b>모델 D 지표</b><i></i></div>
+                    </div>
+                </div>
             </div>
         </div>
         <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">10 / <b>11</b></span></footer>
@@ -939,7 +945,7 @@ svg.map{width:100%;height:100%;max-height:430px;}
             <div class="takes">
                 <div class="take reveal d1"><div class="tn">01</div><div class="tt">복잡도를 가시화</div><div class="td">10시장·7CMO·5단계 BOM의 공급망을 한 화면에서 조망</div></div>
                 <div class="take reveal d2"><div class="tn">02</div><div class="tt">신호등으로 판단</div><div class="td">17개 KPI를 RAG로 자동 채점 — 이상을 즉시 식별·선제 대응</div></div>
-                <div class="take reveal d3"><div class="tn">03</div><div class="tt">전사 확장 기반</div><div class="td">Frontend·Backend·통합 DB로 다중 사용자·본부 모델 연동까지 확장</div></div>
+                <div class="take reveal d3"><div class="tn">03</div><div class="tt">본부 통합 View로 발전</div><div class="td">본부 내 여러 모델의 데이터를 하나의 화면으로 모아 지속 발전</div></div>
             </div>
             <div class="close-foot reveal d4">
                 <span class="qa">Q &amp; A</span><span class="ln"></span>
