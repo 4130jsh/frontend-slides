@@ -404,6 +404,20 @@ svg.map{width:100%;height:100%;max-height:430px;}
 .gscale{display:flex;justify-content:space-between;margin-top:10px;font-size:12px;color:var(--on-navy-soft);}
 .gscale span:nth-child(2){color:#5FD89A;font-weight:700;}
 .xmean .ragdot{display:inline-block;width:11px;height:11px;border-radius:50%;background:var(--rag-amber);margin-right:8px;}
+/* slide-6 compute-flow (data lineage) diagram */
+.x6wrap{display:flex;gap:24px;align-items:stretch;flex:1;min-height:0;margin-top:18px;}
+.cflow{flex:1.78;min-height:0;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:10px 16px;}
+.cflow svg{width:100%;height:100%;display:block;}
+.x6res{flex:1;}
+.cf-in{fill:rgba(255,255,255,.06);stroke:rgba(255,255,255,.20);stroke-width:1.5;}
+.cf-calc{fill:#13315f;stroke:var(--accent-br);stroke-width:2;}
+.cf-master{fill:rgba(95,214,206,.07);stroke:rgba(95,214,206,.45);stroke-width:1.5;stroke-dasharray:6 6;}
+.cf-t{font-family:var(--dp);font-weight:700;font-size:18px;fill:#fff;}
+.cf-s{font-family:var(--kr);font-size:13px;fill:var(--on-navy-soft);}
+.cf-f{font-family:var(--dp);font-weight:800;font-size:18px;fill:var(--accent-br);}
+.cf-lbl{font-family:var(--dp);font-weight:700;font-size:12px;fill:var(--accent-br);letter-spacing:.1em;}
+.cf-arrow{fill:none;stroke:var(--accent-br);stroke-width:2.2;}
+.cf-darrow{fill:none;stroke:rgba(95,214,206,.5);stroke-width:1.6;stroke-dasharray:5 5;}
 /* long-term plan: multi-model integration (11) */
 .ltp{flex:1;display:flex;flex-direction:column;justify-content:space-between;min-height:0;margin-top:18px;}
 .ltp-models{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
@@ -729,23 +743,41 @@ svg.map{width:100%;height:100%;max-height:430px;}
             <header class="shead">
                 <div class="kicker reveal"><span class="kbar"></span>05 · SOLUTION — 데이터의 정보화 (예시)</div>
                 <h2 class="reveal">복수의 데이터를 <span class="accent">보고 싶은 정보</span>로 전환합니다</h2>
-                <p class="sub reveal">정해진 <b>로직(공식)</b>과 <b>마스터데이터(BOM)</b>에 따라 흩어진 raw 데이터가 의미 있는 KPI로 계산됩니다 — 예: <b>완제품 재고 일수</b>.</p>
+                <p class="sub reveal">여러 데이터가 통합되고, 각 데이터가 <b>전환 규칙</b>과 <b>마스터데이터(BOM)</b>를 거쳐 우리가 보고 싶은 정보로 계산됩니다 — 예: <b>완제품 재고 일수</b>.</p>
             </header>
-            <div class="xform reveal d2">
-                <div class="xcol">
-                    <div class="xh"><span class="xn">복수의 데이터</span>여러 raw 데이터</div>
-                    <div class="xchip"><b>창고 재고 수량</b><span>MB52 · 단계별 재고</span><em class="xv">12,460 EA</em></div>
-                    <div class="xchip"><b>일평균 소요 (ADU)</b><span>수요예측 · 출고(MB51)</span><em class="xv">327 EA/일</em></div>
-                    <div class="xchip"><b>제품·단계 구분</b><span>완제품(FP) 필터 · BOM</span></div>
+            <div class="x6wrap reveal d2">
+                <div class="cflow">
+                    <svg viewBox="0 0 1040 384" preserveAspectRatio="xMidYMid meet" role="img" aria-label="재고일수 계산 흐름 — 수요예측·출고실적으로 ADU 산출, 창고재고와 함께 전환 규칙·마스터데이터를 거쳐 완제품 재고일수 도출">
+                        <defs><marker id="cfah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#5FD6CE"/></marker></defs>
+                        <rect class="cf-in" x="6" y="22" width="252" height="64" rx="11"/>
+                        <text class="cf-t" x="24" y="52">수요예측</text>
+                        <text class="cf-s" x="24" y="74">월별 수요계획</text>
+                        <rect class="cf-in" x="6" y="104" width="252" height="64" rx="11"/>
+                        <text class="cf-t" x="24" y="134">출고 실적</text>
+                        <text class="cf-s" x="24" y="156">MB51 · 최근 출고량</text>
+                        <rect class="cf-in" x="6" y="232" width="252" height="64" rx="11"/>
+                        <text class="cf-t" x="24" y="262">창고 재고 수량</text>
+                        <text class="cf-s" x="24" y="284">MB52 · 현재고 12,460 EA</text>
+                        <rect class="cf-calc" x="332" y="42" width="278" height="112" rx="13"/>
+                        <text class="cf-lbl" x="471" y="66" text-anchor="middle">STEP 1 · 일평균 소요량</text>
+                        <text class="cf-t" x="471" y="96" text-anchor="middle">ADU = (수요·출고) &#247; 기간</text>
+                        <text class="cf-f" x="471" y="130" text-anchor="middle">= 327 EA/일</text>
+                        <rect class="cf-calc" x="684" y="150" width="300" height="112" rx="13"/>
+                        <text class="cf-lbl" x="834" y="174" text-anchor="middle">STEP 2 · 전환 규칙</text>
+                        <text class="cf-t" x="834" y="204" text-anchor="middle">재고수량 &#247; ADU</text>
+                        <text class="cf-f" x="834" y="238" text-anchor="middle">= 12,460 &#247; 327</text>
+                        <rect class="cf-master" x="332" y="306" width="652" height="52" rx="11"/>
+                        <text class="cf-s" x="658" y="338" text-anchor="middle" style="fill:#9fe7e0">마스터데이터 (BOM) · 완제품 단계 필터 · 단위 전환계수</text>
+                        <path class="cf-arrow" d="M258 54 C 300 54 298 84 328 88" marker-end="url(#cfah)"/>
+                        <path class="cf-arrow" d="M258 136 C 300 136 298 110 328 106" marker-end="url(#cfah)"/>
+                        <path class="cf-arrow" d="M610 102 C 648 102 650 182 680 190" marker-end="url(#cfah)"/>
+                        <path class="cf-arrow" d="M258 264 C 470 264 506 222 680 216" marker-end="url(#cfah)"/>
+                        <path class="cf-arrow" d="M984 206 L 1036 206" marker-end="url(#cfah)"/>
+                        <path class="cf-darrow" d="M471 306 L 471 158" marker-end="url(#cfah)"/>
+                        <path class="cf-darrow" d="M834 306 L 834 266" marker-end="url(#cfah)"/>
+                    </svg>
                 </div>
-                <div class="xarrow">&#8594;</div>
-                <div class="xcol engine">
-                    <div class="xh eng"><span class="xn">전환 규칙</span>로직 + 마스터데이터</div>
-                    <div class="xchip"><b>마스터데이터 (BOM)</b><span>제품·단계 매핑 · 단위 전환계수</span></div>
-                    <div class="xformula">재고수량 &#247; ADU<small>= 12,460 &#247; 327</small></div>
-                </div>
-                <div class="xarrow">&#8594;</div>
-                <div class="xcol out">
+                <div class="xcol out x6res">
                     <div class="xkname">완제품 재고 일수 (DoS)</div>
                     <div class="xval">38<small>일</small></div>
                     <div class="gauge">
