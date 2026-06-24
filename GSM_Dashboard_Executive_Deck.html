@@ -468,7 +468,17 @@ svg.map{width:100%;height:100%;max-height:430px;}
 .ltp-view-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:15px;}
 .ltp-view-h b{font-family:var(--dp);font-weight:800;font-size:22px;color:#fff;}
 .ltp-view-h span{font-family:var(--kr);font-size:14.5px;color:var(--on-navy-soft);}
-.ltp-view-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.vrow{display:flex;align-items:stretch;gap:0;}
+.vinfos{flex:1.35;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.vinfo{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.vinfo b{font-family:var(--dp);font-weight:700;font-size:15px;color:#fff;}
+.vinfo .veye{font-family:var(--dp);font-weight:700;font-size:11.5px;color:var(--accent-br);background:rgba(95,214,206,.14);border:1px solid rgba(95,214,206,.4);padding:2px 10px;border-radius:999px;white-space:nowrap;}
+.vmerge{flex:0 0 134px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--accent-br);}
+.vmerge span{font-size:30px;font-weight:800;line-height:1;}
+.vmerge em{font-style:normal;font-family:var(--dp);font-weight:700;font-size:13px;margin-top:6px;text-align:center;line-height:1.3;}
+.vnew{flex:1;background:radial-gradient(120% 120% at 50% 20%,#143a72,#0e2a5a);border:2px solid var(--accent-br);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px;box-shadow:0 0 30px rgba(95,214,206,.2);}
+.vnew b{font-family:var(--dp);font-weight:800;font-size:19px;color:var(--accent-br);}
+.vnew span{font-family:var(--kr);font-size:13.5px;color:var(--on-navy-soft);margin-top:7px;line-height:1.4;}
 
 /* ===== LIVE DEMO (08) ===== */
 .demo{display:flex;gap:30px;flex:1;margin-top:24px;}
@@ -910,8 +920,8 @@ svg.map{width:100%;height:100%;max-height:430px;}
         <div class="pad">
             <header class="shead">
                 <div class="kicker reveal"><span class="kbar"></span>09 · 본부 내 계획 — 통합 View</div>
-                <h2 class="reveal">본부 내 여러 모델의 데이터를 <span class="accent">하나의 View</span>로</h2>
-                <p class="sub reveal">본부 안에서 여러 모델이 개발되고 있습니다. 이 모델들로부터 수집되는 데이터를 하나의 대시보드 View로 모아, 한 화면에서 보여주는 방향으로 발전시키겠습니다.</p>
+                <h2 class="reveal">여러 모델의 정보를 <span class="accent">열람하고 통합·전환</span>하는 대시보드</h2>
+                <p class="sub reveal">본부 안에서 여러 모델이 개발되고 있습니다. 각 모델이 출력하는 정보를 열람하고, 여러 정보를 통합해 또다른 새로운 정보로 전환하는 대시보드로 발전시키겠습니다.</p>
             </header>
             <div class="ltp reveal d2">
                 <div class="ltp-cap">본부 내 개발 중인 여러 모델</div>
@@ -922,14 +932,18 @@ svg.map{width:100%;height:100%;max-height:430px;}
                     <div class="lmodel"><div class="lm-ico"><span></span><span></span><span></span></div><div class="lm-name">모델 D</div><div class="lm-stat">개발 중</div></div>
                     <div class="lmodel add"><div class="lm-plus">&#43;</div><div class="lm-name">더 많은 모델</div><div class="lm-stat">예정</div></div>
                 </div>
-                <div class="ltp-flow">&#9660; &nbsp; 각 모델에서 수집되는 데이터를 한곳에 &nbsp; &#9660;</div>
+                <div class="ltp-flow">&#9660; &nbsp; 각 모델이 정보를 출력 &nbsp; &#9660;</div>
                 <div class="ltp-view">
-                    <div class="ltp-view-h"><b>하나의 통합 View · 본부 GSM 대시보드</b><span>여러 모델의 데이터를 한 화면에서 조망</span></div>
-                    <div class="ltp-view-kpis">
-                        <div class="ktile g"><b>모델 A 지표</b><i></i></div>
-                        <div class="ktile a"><b>모델 B 지표</b><i></i></div>
-                        <div class="ktile g"><b>모델 C 지표</b><i></i></div>
-                        <div class="ktile g"><b>모델 D 지표</b><i></i></div>
+                    <div class="ltp-view-h"><b>하나의 통합 View · 본부 GSM 대시보드</b><span>각 정보를 열람하고, 여러 정보를 통합해 새로운 정보로 전환</span></div>
+                    <div class="vrow">
+                        <div class="vinfos">
+                            <div class="vinfo"><b>모델 A 정보</b><span class="veye">열람</span></div>
+                            <div class="vinfo"><b>모델 B 정보</b><span class="veye">열람</span></div>
+                            <div class="vinfo"><b>모델 C 정보</b><span class="veye">열람</span></div>
+                            <div class="vinfo"><b>모델 D 정보</b><span class="veye">열람</span></div>
+                        </div>
+                        <div class="vmerge"><span>&#8594;</span><em>통합 · 전환</em></div>
+                        <div class="vnew"><b>새로운 통합 정보</b><span>여러 정보를 결합·전환해 도출</span></div>
                     </div>
                 </div>
             </div>
