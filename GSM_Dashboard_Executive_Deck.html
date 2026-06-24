@@ -339,6 +339,31 @@ svg.map{width:100%;height:100%;max-height:430px;}
 .jc-t{font-family:var(--dp);font-weight:700;font-size:19px;color:var(--ink);}
 .jc-d{font-size:15px;color:var(--ink-soft);margin-top:8px;line-height:1.5;}
 .jc-ar{flex:0 0 44px;display:grid;place-items:center;color:var(--accent);font-size:26px;font-weight:800;}
+/* compact how-it-works strip (07) */
+.howstrip{display:flex;align-items:stretch;gap:0;}
+.hs-item{flex:1;background:var(--mist);border:1px solid var(--line);border-radius:13px;padding:13px 18px;display:flex;flex-direction:column;justify-content:center;}
+.hs-item b{font-family:var(--dp);font-weight:700;font-size:18px;color:var(--ink);}
+.hs-item i{font-style:normal;font-size:13.5px;color:var(--ink-soft);margin-top:4px;}
+.hs-item.out{background:var(--navy);border-color:var(--navy);}
+.hs-item.out b{color:#fff;} .hs-item.out i{color:var(--on-navy-soft);}
+.hs-arr{flex:0 0 44px;display:grid;place-items:center;color:var(--accent-dk);font-size:24px;font-weight:800;}
+/* data-first tip (07) */
+.tipbox{margin-top:18px;background:linear-gradient(180deg,#F1FBF9,#E9F6F4);border:1px solid rgba(44,154,143,.4);border-left:5px solid var(--accent);border-radius:16px;padding:18px 22px;}
+.tip-h{font-family:var(--dp);font-weight:700;font-size:18px;color:var(--ink);margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.tip-h b{color:var(--accent-dk);}
+.tip-badge{font-family:var(--dp);font-weight:800;font-size:13px;letter-spacing:.08em;color:#fff;background:var(--accent);padding:4px 12px;border-radius:7px;}
+.tipflow{display:flex;align-items:stretch;gap:0;}
+.tstep{flex:1;background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px;}
+.tstep.wide{flex:1.55;}
+.tstep.done{border-color:var(--accent);background:rgba(44,154,143,.06);}
+.tn{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--dp);font-weight:800;font-size:15px;display:grid;place-items:center;margin-bottom:9px;}
+.tstep.done .tn{background:var(--accent-dk);}
+.tt{font-family:var(--dp);font-weight:700;font-size:15.5px;color:var(--ink);}
+.td{font-size:13px;color:var(--ink-soft);margin-top:6px;line-height:1.42;}
+.tstep.wide .td{display:flex;flex-direction:column;gap:5px;}
+.tstep.wide .td span{position:relative;padding-left:13px;}
+.tstep.wide .td span::before{content:"·";position:absolute;left:3px;color:var(--accent);font-weight:800;}
+.tarrow{flex:0 0 34px;display:grid;place-items:center;color:var(--accent);font-size:22px;font-weight:800;}
 
 /* ===== ARCHITECTURE (07) ===== */
 .archtbl{margin-top:26px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--mist);}
@@ -835,32 +860,35 @@ svg.map{width:100%;height:100%;max-height:430px;}
             <header class="shead">
                 <div class="kicker reveal"><span class="kbar"></span>06 · 구현과정 — 개발 &amp; 동작</div>
                 <h2 class="reveal">엑셀 업로드로 바로 보고, <span class="accent">AI 반복</span>으로 완성</h2>
-                <p class="sub reveal">엑셀 파일을 올리면 대시보드 화면에 정보가 바로 출력됩니다. 이 대시보드는 Pain point에서 출발해 AI와 반복하며 만들었습니다.</p>
+                <p class="sub reveal">엑셀을 올리면 화면에 정보가 바로 뜹니다. 이 대시보드는 Pain point에서 출발해 AI와 반복하며 만들었고, 핵심 노하우는 &lsquo;화면이 아니라 데이터부터&rsquo; 였습니다.</p>
             </header>
-            <div class="seclabel">&#9312; 어떻게 동작하나 — 엑셀 업로드 &#8594; 대시보드 정보 출력</div>
-            <div class="hwf reveal d2">
-                <div class="hwf-up">
-                    <div class="hwf-xls">XLSX</div>
-                    <div class="hwf-t">엑셀 파일 업로드</div>
-                    <div class="hwf-s">SAP 추출·현업 시트를<br>드래그 &amp; 드롭</div>
-                </div>
-                <div class="hwf-ar"><span>&#8594;</span><em>자동 인식 ·<br>KPI/RAG 계산</em></div>
-                <div class="hwf-scr">
-                    <div class="scr-top"><i class="r"></i><i class="a"></i><i class="g"></i><span class="scr-ttl">GSM Dashboard</span></div>
-                    <div class="scr-body">
-                        <div class="scr-kpis"><div class="ktile g"><b>OTIF</b><i></i></div><div class="ktile a"><b>재고 일수</b><i></i></div><div class="ktile g"><b>CMO 일정</b><i></i></div></div>
-                        <div class="scr-chart"><span style="height:45%"></span><span style="height:72%"></span><span style="height:58%"></span><span style="height:88%"></span><span style="height:64%"></span><span style="height:50%"></span></div>
-                    </div>
-                    <div class="scr-foot">대시보드 화면에 정보 출력 · 17 KPI · RAG 신호등</div>
-                </div>
+            <div class="seclabel">&#9312; 어떻게 동작하나 — 엑셀 업로드 &#8594; 대시보드 출력</div>
+            <div class="howstrip reveal d2">
+                <span class="hs-item"><b>엑셀 파일 업로드</b><i>SAP·현업 시트 드래그 &amp; 드롭</i></span>
+                <span class="hs-arr">&#8594;</span>
+                <span class="hs-item"><b>자동 인식 · 계산</b><i>8개 디텍터 · KPI/RAG 자동</i></span>
+                <span class="hs-arr">&#8594;</span>
+                <span class="hs-item out"><b>대시보드 출력</b><i>17 KPI · 신호등</i></span>
             </div>
             <div class="seclabel t2">&#9313; 어떻게 만들었나 — 개발 여정</div>
-            <div class="jrow reveal d4">
+            <div class="jrow reveal d3">
                 <div class="jcard"><div class="jc-n">1</div><div class="jc-t">Pain Point 확인</div><div class="jc-d">공급망 복잡성·데이터 파편화 — 한 화면에서 볼 수 없는 문제를 정의</div></div>
                 <div class="jc-ar">&#8594;</div>
                 <div class="jcard"><div class="jc-n">2</div><div class="jc-t">AI로 MVP 솔루션</div><div class="jc-d">&ldquo;이 Pain point를 해결할 대시보드를 만들어줘&rdquo; &#8594; AI가 첫 MVP를 제공</div></div>
                 <div class="jc-ar">&#8594;</div>
                 <div class="jcard"><div class="jc-n">3</div><div class="jc-t">AI + Trial &amp; Error 개선</div><div class="jc-d">반복하며 대시보드 구성·방식과 출력 정보의 신뢰도를 지속 개선</div></div>
+            </div>
+            <div class="tipbox reveal d4">
+                <div class="tip-h"><span class="tip-badge">TIP</span> 보고 싶은 <b>화면부터</b> 만들지 말고, 가진 <b>데이터부터</b> 시작하세요</div>
+                <div class="tipflow">
+                    <div class="tstep"><div class="tn">1</div><div class="tt">데이터 구조·역할 학습</div><div class="td">가진 데이터 중 유용한 것의 구조와 의미를 AI에 먼저 이해시키기</div></div>
+                    <div class="tarrow">&#8594;</div>
+                    <div class="tstep"><div class="tn">2</div><div class="tt">잘 읽히는지 확인</div><div class="td">데이터가 의도대로 파싱·정합되는지 점검</div></div>
+                    <div class="tarrow">&#8594;</div>
+                    <div class="tstep wide"><div class="tn">3</div><div class="tt">정보로 발전 (둘 중 하나)</div><div class="td"><span>보고 싶은 정보를 직접 구현</span><span>또는 AI에 &ldquo;이 데이터로 무엇을 알 수 있나?&rdquo; 질문</span></div></div>
+                    <div class="tarrow">&#8594;</div>
+                    <div class="tstep done"><div class="tn">&#10003;</div><div class="tt">대시보드 완성</div><div class="td">데이터 기반으로 점진적 구축</div></div>
+                </div>
             </div>
         </div>
         <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">07 / <b>11</b></span></footer>
