@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cenobamate 글로벌 공급망 관리 대시보드 구축 — SK바이오팜</title>
+
+<!--
+  ============================================================
+  Cenobamate GSM Dashboard — Executive Deck (10 slides, 10 min)
+  Audience : SK바이오팜 임직원
+  Style    : Corporate Executive — SK Navy #15224F + White + SK Red #EA002C
+  Structure: Pain Point → Solution → 구현과정 → 대시보드 시연 → 추후 계획
+  Fonts    : Sora (display/numbers) + IBM Plex Sans KR (Korean body)
+             — matches the existing GSM brand assets, not generic system fonts.
+  Stage    : Fixed 1920×1080, scaled uniformly to the viewport (16:9, never reflowed)
+  ============================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   CSS CUSTOM PROPERTIES — SK Corporate Executive theme
+   Change these to retheme the entire deck.
+   ============================================================ */
+:root{
+    /* Brand core */
+    --navy:#15224F;          /* SK navy — primary dark */
+    --navy-2:#1E2F66;        /* raised navy panel */
+    --navy-3:#283C7E;        /* navy hairline / hover */
+    --red:#EA002C;           /* SK red — accent */
+    --red-soft:rgba(234,0,44,.12);
+
+    /* Light surfaces */
+    --paper:#F3F6FC;         /* light slide background */
+    --mist:#FFFFFF;          /* card on light */
+    --mist-2:#EAF0FA;        /* tinted card */
+    --line:#D6DEEE;          /* borders on light */
+
+    /* Text */
+    --ink:#15224F;           /* dark text on light */
+    --ink-soft:#46537A;      /* secondary text on light */
+    --slate:#6B779A;         /* muted */
+    --on-navy:#EAF0FB;       /* primary text on navy */
+    --on-navy-soft:#A9B6D6;  /* secondary text on navy */
+
+    /* RAG signal lights */
+    --rag-green:#1F9D57;
+    --rag-amber:#E6A100;
+    --rag-red:#EA002C;
+    --rag-na:#8A97B0;
+
+    /* Type */
+    --dp:'Sora',sans-serif;          /* display + numbers */
+    --kr:'IBM Plex Sans KR',sans-serif; /* Korean body */
+
+    /* Motion — corporate: fast, precise */
+    --ease:cubic-bezier(.16,1,.3,1);
+    --dur:.55s;
+
+    --stage-bg:#0C1430;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+/* ============================================================
+   MANDATORY FIXED-STAGE BASE (verbatim from viewport-base.css)
+   ============================================================ */
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--stage-bg,#000);}
+.deck-viewport{position:fixed;inset:0;overflow:hidden;background:var(--stage-bg,#000);}
+.deck-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0;background:var(--slide-bg,#fff);}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:block;visibility:hidden;opacity:0;pointer-events:none;background:var(--slide-bg,#fff);}
+.slide.active,.slide.visible{visibility:visible;opacity:1;pointer-events:auto;z-index:1;}
+img,video,canvas,svg{max-width:100%;max-height:100%;}
+.deck-controls{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:1000;}
+@media print{
+    html,body{width:1920px;height:auto;overflow:visible;background:#fff;}
+    .deck-viewport{position:static;overflow:visible;background:#fff;}
+    .deck-stage{position:static;width:auto;height:auto;transform:none !important;background:none;}
+    .slide{position:relative;display:block !important;visibility:visible !important;opacity:1 !important;pointer-events:auto !important;width:1920px;height:1080px;break-after:page;page-break-after:always;}
+    .slide:last-child{break-after:auto;page-break-after:auto;}
+    .deck-controls{display:none !important;}
+}
+@media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.2s !important;}
+}
+
+/* ============================================================
+   THEME SURFACES
+   ============================================================ */
+.slide{font-family:var(--kr);color:var(--ink);background:var(--paper);}
+.slide[data-theme="dark"]{
+    color:var(--on-navy);
+    background:
+        radial-gradient(1200px 700px at 85% -10%, rgba(40,60,126,.55) 0%, transparent 60%),
+        radial-gradient(900px 600px at 0% 110%, rgba(234,0,44,.10) 0%, transparent 55%),
+        linear-gradient(160deg,#15224F 0%,#101B42 60%,#0C1430 100%);
+}
+
+/* Subtle structural grid on dark slides for depth */
+.slide[data-theme="dark"]::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:
+        linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(ellipse at 70% 30%,#000 0%,transparent 75%);
+}
+
+.pad{position:absolute;inset:0;padding:84px 104px 96px;display:flex;flex-direction:column;}
+
+/* ---- Slide header chrome ---- */
+.kicker{display:inline-flex;align-items:center;gap:14px;font-family:var(--dp);font-weight:600;
+    font-size:20px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);}
+[data-theme="dark"] .kicker{color:var(--on-navy-soft);}
+.kbar{width:46px;height:6px;border-radius:3px;background:var(--red);box-shadow:0 0 0 4px var(--red-soft);}
+.shead h2{font-family:var(--dp);font-weight:700;font-size:58px;line-height:1.06;margin-top:22px;letter-spacing:-.01em;}
+.shead .sub{font-size:25px;margin-top:16px;color:var(--ink-soft);max-width:1500px;line-height:1.45;}
+[data-theme="dark"] .shead .sub{color:var(--on-navy-soft);}
+.shead .accent{color:var(--red);}
+
+/* ---- Footer chrome ---- */
+.sfoot{position:absolute;left:104px;right:104px;bottom:42px;display:flex;align-items:center;
+    justify-content:space-between;font-family:var(--dp);font-size:17px;letter-spacing:.04em;color:var(--slate);}
+[data-theme="dark"] .sfoot{color:var(--on-navy-soft);}
+.sfoot .brand{font-weight:600;color:var(--ink-soft);}
+[data-theme="dark"] .sfoot .brand{color:var(--on-navy);}
+.sfoot .brand b{color:var(--red);}
+.sfoot .pg b{color:var(--ink);}
+[data-theme="dark"] .sfoot .pg b{color:#fff;}
+
+/* ============================================================
+   ENTRANCE ANIMATIONS — trigger via .visible
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity var(--dur) var(--ease),transform var(--dur) var(--ease);}
+.slide.visible .reveal{opacity:1;transform:none;}
+.slide.visible .reveal:nth-child(1){transition-delay:.05s;}
+.slide.visible .reveal:nth-child(2){transition-delay:.12s;}
+.slide.visible .reveal:nth-child(3){transition-delay:.19s;}
+.slide.visible .reveal:nth-child(4){transition-delay:.26s;}
+.d1{transition-delay:.10s!important;} .d2{transition-delay:.18s!important;} .d3{transition-delay:.26s!important;}
+.d4{transition-delay:.34s!important;} .d5{transition-delay:.42s!important;} .d6{transition-delay:.50s!important;}
+.d7{transition-delay:.58s!important;} .d8{transition-delay:.66s!important;}
+
+/* ============================================================
+   TITLE SLIDE (01)
+   ============================================================ */
+.title-wrap{position:absolute;inset:0;padding:120px 120px;display:flex;flex-direction:column;justify-content:center;}
+.title-eyebrow{display:inline-flex;align-items:center;gap:16px;font-family:var(--dp);font-weight:600;
+    font-size:22px;letter-spacing:.28em;text-transform:uppercase;color:var(--on-navy-soft);}
+.title-wrap h1{font-family:var(--dp);font-weight:800;font-size:104px;line-height:1.02;letter-spacing:-.02em;
+    margin-top:34px;color:#fff;max-width:1500px;}
+.title-wrap h1 .em{color:var(--red);}
+.title-wrap .lead{font-size:30px;color:var(--on-navy);margin-top:30px;font-weight:400;letter-spacing:.01em;}
+.title-stats{display:flex;gap:20px;margin-top:54px;}
+.tstat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;
+    padding:24px 34px;backdrop-filter:blur(4px);}
+.tstat .n{font-family:var(--dp);font-weight:700;font-size:48px;color:#fff;line-height:1;}
+.tstat .n span{color:var(--red);}
+.tstat .l{font-size:19px;color:var(--on-navy-soft);margin-top:10px;letter-spacing:.02em;}
+.title-foot{position:absolute;left:120px;right:120px;bottom:60px;display:flex;justify-content:space-between;
+    align-items:flex-end;font-family:var(--dp);color:var(--on-navy-soft);font-size:19px;letter-spacing:.04em;}
+.title-foot .skmark{font-weight:700;font-size:24px;color:#fff;letter-spacing:.02em;}
+.title-foot .skmark b{color:var(--red);}
+.redline{width:120px;height:8px;background:var(--red);border-radius:4px;}
+
+/* ============================================================
+   SUPPLY-CHAIN FLOW (slide 02)
+   ============================================================ */
+.flowrow{display:flex;align-items:stretch;gap:0;margin-top:6px;}
+.fstage{flex:1;background:var(--mist);border:1px solid var(--line);border-radius:16px;padding:22px 18px 20px;
+    position:relative;display:flex;flex-direction:column;}
+.fstage .lv{font-family:var(--dp);font-weight:700;font-size:15px;letter-spacing:.14em;color:var(--slate);}
+.fstage .nm{font-family:var(--dp);font-weight:700;font-size:30px;margin-top:8px;color:var(--ink);}
+.fstage .ko{font-size:18px;color:var(--ink-soft);margin-top:3px;}
+.fstage .cmo{font-size:16px;color:var(--slate);margin-top:14px;line-height:1.4;border-top:1px dashed var(--line);padding-top:12px;}
+.fstage.hot{border-color:var(--red);box-shadow:0 8px 30px rgba(234,0,44,.14);}
+.fstage.hot .nm{color:var(--red);}
+.fstage .badge{position:absolute;top:-13px;right:14px;background:var(--red);color:#fff;font-family:var(--dp);
+    font-weight:700;font-size:13px;letter-spacing:.06em;padding:5px 12px;border-radius:20px;}
+.farrow{flex:0 0 40px;display:flex;align-items:center;justify-content:center;color:var(--slate);font-size:26px;font-weight:700;}
+
+.callrow{display:flex;gap:20px;margin-top:26px;}
+.callout{flex:1;background:linear-gradient(180deg,#fff,#F7FAFF);border:1px solid var(--line);border-radius:16px;
+    padding:22px 22px;border-top:4px solid var(--red);}
+.callout .ct{font-family:var(--dp);font-weight:700;font-size:21px;color:var(--ink);}
+.callout .cd{font-size:16.5px;color:var(--ink-soft);margin-top:10px;line-height:1.5;}
+
+.keybar{margin-top:26px;background:var(--navy);color:#fff;border-radius:16px;padding:20px 32px;
+    display:flex;align-items:center;gap:30px;}
+.keybar .kt{font-family:var(--dp);font-weight:700;font-size:20px;color:var(--red);letter-spacing:.04em;white-space:nowrap;}
+.keybar .seg{display:flex;gap:14px;flex-wrap:wrap;}
+.kchip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:999px;
+    padding:9px 20px;font-size:17px;color:var(--on-navy);}
+.kchip b{color:#fff;font-family:var(--dp);}
+
+/* ============================================================
+   TWO-COLUMN GENERIC (slide 03)
+   ============================================================ */
+.cols{display:flex;gap:34px;flex:1;margin-top:30px;}
+.col{flex:1;display:flex;flex-direction:column;}
+.coltag{font-family:var(--dp);font-weight:700;font-size:19px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--on-navy-soft);margin-bottom:18px;display:flex;align-items:center;gap:12px;}
+.coltag::before{content:"";width:30px;height:4px;border-radius:2px;background:var(--red);}
+.limit{list-style:none;display:flex;flex-direction:column;gap:14px;}
+.limit li{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;
+    padding:18px 22px;display:flex;gap:16px;align-items:flex-start;}
+.limit li .ic{flex:0 0 auto;width:40px;height:40px;border-radius:10px;background:rgba(234,0,44,.18);
+    display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--dp);font-weight:700;font-size:19px;}
+.limit li .tx b{display:block;font-family:var(--dp);font-weight:600;font-size:21px;color:#fff;margin-bottom:4px;}
+.limit li .tx span{font-size:17px;color:var(--on-navy-soft);line-height:1.4;}
+
+/* risk snapshot mini grid */
+.snap{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.scell{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:18px 20px;position:relative;}
+.scell .sl{font-size:16px;color:var(--on-navy-soft);}
+.scell .sv{font-family:var(--dp);font-weight:700;font-size:42px;margin-top:6px;line-height:1;color:#fff;}
+.scell .sv small{font-family:var(--kr);font-size:18px;font-weight:400;color:var(--on-navy-soft);margin-left:4px;}
+.scell .dot{position:absolute;top:18px;right:18px;width:14px;height:14px;border-radius:50%;}
+.scell.red{border-color:rgba(234,0,44,.55);box-shadow:0 0 0 1px rgba(234,0,44,.25) inset;}
+.scell.red .sv{color:#FF6B83;}
+.dot.green{background:var(--rag-green);box-shadow:0 0 12px var(--rag-green);}
+.dot.amber{background:var(--rag-amber);box-shadow:0 0 12px var(--rag-amber);}
+.dot.red{background:var(--rag-red);box-shadow:0 0 12px var(--rag-red);}
+.snapnote{margin-top:16px;font-size:18px;color:var(--on-navy);}
+.snapnote b{color:var(--red);}
+
+/* ============================================================
+   SOLUTION — TAB GRID (slide 04)
+   ============================================================ */
+.solbar{display:flex;gap:18px;margin-top:24px;margin-bottom:26px;}
+.solpill{flex:1;background:var(--navy);color:#fff;border-radius:16px;padding:20px 26px;display:flex;
+    align-items:center;gap:18px;}
+.solpill .pn{font-family:var(--dp);font-weight:800;font-size:42px;line-height:1;color:#fff;}
+.solpill .pn span{color:var(--red);}
+.solpill .pl{font-size:17px;color:var(--on-navy-soft);line-height:1.35;}
+.tabgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;flex:1;}
+.tabc{background:var(--mist);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;
+    flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;}
+.tabc::after{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent,var(--navy-3));}
+.tabc .tt{font-family:var(--dp);font-weight:700;font-size:21px;color:var(--ink);}
+.tabc .ts{font-size:15.5px;color:var(--ink-soft);margin-top:8px;line-height:1.42;}
+.tabc .pip{font-family:var(--dp);font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--slate);margin-top:14px;}
+
+/* ============================================================
+   KPI CARDS (slide 05)
+   ============================================================ */
+.kpigrid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;flex:1;margin-top:26px;}
+.kpic{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:26px 30px;
+    display:flex;flex-direction:column;position:relative;}
+.kpic .kh{display:flex;justify-content:space-between;align-items:flex-start;}
+.kpic .kname{font-family:var(--dp);font-weight:700;font-size:24px;color:#fff;}
+.kpic .keng{font-size:15px;color:var(--on-navy-soft);margin-top:4px;letter-spacing:.03em;}
+.ragpill{display:inline-flex;align-items:center;gap:9px;font-family:var(--dp);font-weight:700;font-size:15px;
+    padding:8px 16px;border-radius:999px;letter-spacing:.04em;}
+.ragpill .pd{width:11px;height:11px;border-radius:50%;}
+.ragpill.amber{background:rgba(230,161,0,.16);color:#FFC94D;} .ragpill.amber .pd{background:var(--rag-amber);}
+.ragpill.red{background:rgba(234,0,44,.18);color:#FF6B83;} .ragpill.red .pd{background:var(--rag-red);}
+.ragpill.green{background:rgba(31,157,87,.18);color:#5FD89A;} .ragpill.green .pd{background:var(--rag-green);}
+.ragpill.na{background:rgba(138,151,176,.16);color:#C3CCE0;} .ragpill.na .pd{background:var(--rag-na);}
+.kpic .kval{font-family:var(--dp);font-weight:800;font-size:64px;line-height:1;margin-top:24px;color:#fff;}
+.kpic .kval small{font-size:24px;font-weight:500;color:var(--on-navy-soft);margin-left:8px;font-family:var(--kr);}
+.kpic .kmeta{display:flex;gap:26px;margin-top:auto;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);}
+.kpic .kmeta div span{display:block;font-size:14px;color:var(--on-navy-soft);}
+.kpic .kmeta div b{font-family:var(--dp);font-size:18px;color:#fff;}
+.raglegend{display:flex;gap:26px;margin-top:22px;font-size:17px;color:var(--on-navy);align-items:center;}
+.raglegend i{display:inline-block;width:13px;height:13px;border-radius:50%;margin-right:8px;vertical-align:-1px;}
+
+/* ============================================================
+   DATA FLOW (slide 06)
+   ============================================================ */
+.pipe{display:flex;align-items:stretch;gap:0;margin-top:30px;}
+.pnode{flex:1;background:var(--mist);border:1px solid var(--line);border-radius:16px;padding:22px 20px;text-align:center;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.pnode .pi{font-family:var(--dp);font-weight:700;font-size:14px;letter-spacing:.14em;color:var(--slate);}
+.pnode .ph{font-family:var(--dp);font-weight:700;font-size:23px;color:var(--ink);margin-top:8px;}
+.pnode .pp{font-size:15px;color:var(--ink-soft);margin-top:8px;line-height:1.4;}
+.pnode.core{background:var(--navy);border-color:var(--navy);}
+.pnode.core .pi{color:var(--on-navy-soft);} .pnode.core .ph{color:#fff;} .pnode.core .pp{color:var(--on-navy-soft);}
+.pnode.out{background:linear-gradient(180deg,#fff,#F2F6FF);border-top:4px solid var(--red);}
+.parrow{flex:0 0 36px;display:flex;align-items:center;justify-content:center;color:var(--slate);font-size:24px;font-weight:700;}
+.scalebox{margin-top:28px;background:var(--mist-2);border:1px solid var(--line);border-radius:16px;padding:22px 28px;}
+.scalebox .sbh{font-family:var(--dp);font-weight:700;font-size:18px;color:var(--ink);letter-spacing:.03em;display:flex;
+    align-items:center;gap:12px;margin-bottom:16px;}
+.scalebox .sbh .tot{margin-left:auto;color:var(--red);}
+.scalechips{display:flex;gap:14px;flex-wrap:wrap;}
+.dchip{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 18px;}
+.dchip .dn{font-family:var(--dp);font-weight:700;font-size:26px;color:var(--ink);line-height:1;}
+.dchip .dl{font-size:14.5px;color:var(--slate);margin-top:6px;}
+
+/* ============================================================
+   ARCHITECTURE TABLE (slide 07)
+   ============================================================ */
+.archtbl{margin-top:26px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--mist);}
+.archtbl .trow{display:grid;grid-template-columns:1.1fr 2fr 2fr;align-items:stretch;}
+.archtbl .trow + .trow{border-top:1px solid var(--line);}
+.archtbl .th{background:var(--navy);color:#fff;}
+.archtbl .th>div{padding:18px 26px;font-family:var(--dp);font-weight:700;font-size:19px;letter-spacing:.04em;}
+.archtbl .th .now{color:var(--on-navy-soft);}
+.archtbl .th .next{color:#FF6B83;}
+.archtbl .trow>div{padding:20px 26px;display:flex;flex-direction:column;justify-content:center;}
+.archtbl .lab{font-family:var(--dp);font-weight:700;font-size:20px;color:var(--ink);background:var(--mist-2);}
+.archtbl .asis{font-size:18px;color:var(--ink-soft);border-left:1px solid var(--line);}
+.archtbl .tobe{font-size:18px;color:var(--ink);border-left:1px solid var(--line);font-weight:500;}
+.archtbl .tobe b{color:var(--red);font-weight:700;}
+.p1note{margin-top:22px;background:var(--navy);color:#fff;border-radius:14px;padding:18px 28px;display:flex;
+    align-items:center;gap:18px;font-size:18px;}
+.p1note .tag{font-family:var(--dp);font-weight:700;font-size:15px;letter-spacing:.06em;background:var(--rag-green);
+    color:#fff;padding:6px 14px;border-radius:8px;}
+.p1note b{color:#fff;} .p1note span{color:var(--on-navy-soft);}
+
+/* ============================================================
+   LIVE DEMO (slide 08)
+   ============================================================ */
+.demo{display:flex;gap:30px;flex:1;margin-top:24px;}
+.demo-side{flex:0 0 360px;display:flex;flex-direction:column;gap:14px;}
+.dscreen{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:15px 18px;
+    display:flex;align-items:center;gap:14px;}
+.dscreen .num{font-family:var(--dp);font-weight:700;font-size:16px;color:var(--red);width:26px;}
+.dscreen .dn{font-family:var(--dp);font-weight:600;font-size:18px;color:#fff;}
+.dscreen .dd{font-size:14px;color:var(--on-navy-soft);margin-left:auto;}
+.demo-live{flex:1;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.16);
+    box-shadow:0 24px 60px rgba(0,0,0,.45);background:#fff;position:relative;}
+/* Iframe rendered at 1/0.7 = 142.857% of the frame, then scaled to 0.7 so the
+   dashboard fully fills the frame regardless of the computed flex width. */
+.demo-live iframe{width:142.857%;height:142.857%;border:0;transform:scale(.7);transform-origin:0 0;
+    position:absolute;top:0;left:0;}
+.demo-cta{position:absolute;bottom:14px;right:14px;background:var(--red);color:#fff;font-family:var(--dp);
+    font-weight:600;font-size:14px;padding:8px 16px;border-radius:999px;letter-spacing:.03em;z-index:3;}
+
+/* ============================================================
+   ROADMAP + VALUE (slide 09)
+   ============================================================ */
+.phases{display:flex;gap:18px;margin-top:26px;}
+.phase{flex:1;background:var(--mist);border:1px solid var(--line);border-radius:16px;padding:22px 22px;
+    border-top:5px solid var(--line);position:relative;}
+.phase.done{border-top-color:var(--rag-green);}
+.phase.prog{border-top-color:var(--rag-amber);}
+.phase.plan{border-top-color:var(--navy-3);}
+.phase .pst{font-family:var(--dp);font-weight:700;font-size:13px;letter-spacing:.08em;padding:5px 12px;border-radius:7px;
+    display:inline-block;margin-bottom:14px;}
+.phase.done .pst{background:rgba(31,157,87,.14);color:var(--rag-green);}
+.phase.prog .pst{background:rgba(230,161,0,.16);color:#B97F00;}
+.phase.next .pst{background:var(--mist-2);color:var(--slate);}
+.phase.plan .pst{background:var(--mist-2);color:var(--slate);}
+.phase h3{font-family:var(--dp);font-weight:700;font-size:21px;color:var(--ink);}
+.phase p{font-size:15.5px;color:var(--ink-soft);margin-top:10px;line-height:1.45;}
+.valuerow{display:flex;gap:18px;margin-top:24px;}
+.vpill{flex:1;background:var(--navy);color:#fff;border-radius:16px;padding:22px 26px;}
+.vpill .vk{font-family:var(--dp);font-weight:800;font-size:18px;letter-spacing:.08em;color:var(--red);}
+.vpill .vt{font-family:var(--dp);font-weight:600;font-size:22px;margin-top:10px;color:#fff;}
+.vpill .vd{font-size:15.5px;color:var(--on-navy-soft);margin-top:8px;line-height:1.4;}
+.extstrip{margin-top:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.extstrip .el{font-family:var(--dp);font-weight:700;font-size:16px;color:var(--ink-soft);letter-spacing:.04em;}
+.extchip{background:var(--mist);border:1px solid var(--line);border-radius:999px;padding:8px 18px;font-size:15.5px;color:var(--ink-soft);}
+
+/* ============================================================
+   CLOSING (slide 10)
+   ============================================================ */
+.close-wrap{position:absolute;inset:0;padding:110px 120px;display:flex;flex-direction:column;justify-content:center;}
+.close-wrap h2{font-family:var(--dp);font-weight:800;font-size:78px;line-height:1.05;color:#fff;letter-spacing:-.02em;}
+.close-wrap h2 .em{color:var(--red);}
+.takes{display:flex;gap:22px;margin-top:48px;}
+.take{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:26px 28px;}
+.take .tn{font-family:var(--dp);font-weight:800;font-size:30px;color:var(--red);}
+.take .tt{font-family:var(--dp);font-weight:600;font-size:22px;color:#fff;margin-top:12px;}
+.take .td{font-size:16px;color:var(--on-navy-soft);margin-top:10px;line-height:1.45;}
+.close-foot{display:flex;align-items:center;gap:22px;margin-top:54px;}
+.close-foot .qa{font-family:var(--dp);font-weight:800;font-size:34px;color:#fff;letter-spacing:.04em;}
+.close-foot .ln{flex:1;height:2px;background:rgba(255,255,255,.18);}
+.close-foot .by{font-size:19px;color:var(--on-navy-soft);}
+
+/* ============================================================
+   DECK CHROME — HUD + progress
+   ============================================================ */
+.hud{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:1000;display:flex;align-items:center;
+    gap:16px;background:rgba(12,20,48,.72);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);
+    border-radius:999px;padding:9px 16px;font-family:var(--dp);}
+.hud button{background:none;border:0;color:#fff;cursor:pointer;font-size:18px;width:30px;height:30px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.hud button:hover{background:rgba(255,255,255,.14);}
+.hud .dots{display:flex;gap:8px;}
+.hud .dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .2s;}
+.hud .dots i.on{background:var(--red);width:22px;border-radius:4px;}
+.hud .count{font-size:14px;color:#fff;letter-spacing:.06em;min-width:54px;text-align:center;}
+.hud .count b{color:var(--red);}
+.progress{position:fixed;top:0;left:0;height:4px;background:var(--red);z-index:1001;transition:width .4s var(--ease);}
+
+/* Inline edit affordance */
+.edit-hotzone{position:fixed;top:0;left:0;width:80px;height:80px;z-index:10000;cursor:pointer;}
+.edit-toggle{position:fixed;top:18px;left:18px;z-index:10001;opacity:0;pointer-events:none;transition:opacity .3s;
+    background:var(--navy);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:10px;width:46px;height:46px;
+    font-size:20px;cursor:pointer;}
+.edit-toggle.show,.edit-toggle.active{opacity:1;pointer-events:auto;}
+.edit-toggle.active{background:var(--red);}
+[contenteditable="true"]{outline:2px dashed rgba(234,0,44,.6);outline-offset:4px;border-radius:4px;cursor:text;}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<div class="deck-viewport">
+<main class="deck-stage" id="deckStage">
+
+    <!-- ============================================================
+         SLIDE 01 — TITLE
+         ============================================================ -->
+    <section class="slide active" data-theme="dark">
+        <div class="title-wrap">
+            <div class="title-eyebrow reveal">SK biopharmaceuticals · Global Supply &amp; Manufacturing</div>
+            <h1 class="reveal">Cenobamate 글로벌 공급망<br>관리 <span class="em">대시보드</span> 구축</h1>
+            <p class="lead reveal">10개 시장 · 7개 CMO · 17개 KPI를 하나의 화면에서 — XCOPRI / ONTOZRY 상업 공급망의 단일 진실 공급원(Single Source of Truth)</p>
+            <div class="title-stats reveal">
+                <div class="tstat"><div class="n">10<span>개</span></div><div class="l">공급 시장 (Markets)</div></div>
+                <div class="tstat"><div class="n">7<span>개</span></div><div class="l">제조 파트너 (CMO)</div></div>
+                <div class="tstat"><div class="n">17<span>개</span></div><div class="l">KPI · RAG 자동 채점</div></div>
+                <div class="tstat"><div class="n">5<span>단계</span></div><div class="l">BOM 제조 흐름</div></div>
+            </div>
+        </div>
+        <div class="title-foot">
+            <div><div class="skmark">SK<b>바이오팜</b></div><div style="margin-top:6px">발표 대상 · SK바이오팜 임직원</div></div>
+            <div style="text-align:right"><div class="redline" style="margin-left:auto"></div><div style="margin-top:12px">2026. 06 · GSM Dashboard 구축 보고</div></div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 02 — PAIN POINT ① : 공급망 구조적 복잡도
+         ============================================================ -->
+    <section class="slide">
+        <div class="pad">
+            <header class="shead">
+                <div class="kicker reveal"><span class="kbar"></span>01 · PAIN POINT — 공급망 복잡도</div>
+                <h2 class="reveal">하나의 약, 그러나 <span class="accent">단일 의존·이중 소싱·시장별 차등</span>이 뒤얽힌 공급망</h2>
+                <p class="sub reveal">Cenobamate는 5단계 BOM을 거쳐 만들어지며, 같은 제품이라도 시장마다 공급되는 제조 단계가 다릅니다.</p>
+            </header>
+
+            <!-- 5-stage BOM flow -->
+            <div class="flowrow reveal d2">
+                <div class="fstage"><div class="lv">L0 · RSM</div><div class="nm">RSM</div><div class="ko">원료 출발물질</div><div class="cmo">Lianhe · Wisdom<br>(중국, 이중 소싱)</div></div>
+                <div class="farrow">›</div>
+                <div class="fstage hot"><span class="badge">단독 CMO</span><div class="lv">L1 · API</div><div class="nm">API</div><div class="ko">원료의약품</div><div class="cmo">SK biotek<br>(한국 · 전 시장 단독)</div></div>
+                <div class="farrow">›</div>
+                <div class="fstage"><div class="lv">L2 · DP</div><div class="nm">DP</div><div class="ko">제제 (정제)</div><div class="cmo">Patheon · Avara<br>(이중 소싱)</div></div>
+                <div class="farrow">›</div>
+                <div class="fstage"><div class="lv">L3 · Semi-FP</div><div class="nm">Semi-FP</div><div class="ko">반제품</div><div class="cmo">Patheon · PCI CA</div></div>
+                <div class="farrow">›</div>
+                <div class="fstage"><div class="lv">L4 · FP</div><div class="nm">FP</div><div class="ko">완제품 · 포장</div><div class="cmo">Patheon · PCI CA/US</div></div>
+            </div>
+
+            <!-- 4 complexity callouts -->
+            <div class="callrow reveal d3">
+                <div class="callout"><div class="ct">단독 API CMO</div><div class="cd">SK biotek 1곳이 <b>전 시장 API를 단독 공급</b> — 단일 의존 리스크의 핵심 지점.</div></div>
+                <div class="callout"><div class="ct">이중 소싱</div><div class="cd">RSM(Lianhe/Wisdom)·DP(Patheon/Avara)는 CMO A/B로 <b>이원화</b>되어 관리 포인트 증가.</div></div>
+                <div class="callout"><div class="ct">Common Blend</div><div class="cd">API 40kg → <b>12.5·25·50mg 배치 동시 생산</b> — 한 배치가 여러 규격에 동시 영향.</div></div>
+                <div class="callout"><div class="ct">API 코드변환</div><div class="cd">US/EU는 실제 합성, ROW1·CA는 <b>물리 공정 없이 코드만 변환</b> — 추적 난이도 상승.</div></div>
+            </div>
+
+            <!-- market differentiation -->
+            <div class="keybar reveal d4">
+                <div class="kt">시장별 차등 공급 — 10개 시장</div>
+                <div class="seg">
+                    <span class="kchip"><b>FP 2</b> · US, China</span>
+                    <span class="kchip"><b>DP 3</b> · HK, Canada, Israel</span>
+                    <span class="kchip"><b>API 5</b> · EU, Japan, LATAM, MENA, Korea</span>
+                </div>
+            </div>
+        </div>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">02 / <b>10</b></span></footer>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 03 — PAIN POINT ② : 분산된 데이터 · 숨은 리스크
+         ============================================================ -->
+    <section class="slide" data-theme="dark">
+        <div class="pad">
+            <header class="shead">
+                <div class="kicker reveal"><span class="kbar"></span>02 · PAIN POINT — 운영의 한계</div>
+                <h2 class="reveal">보이지 않으면 <span class="accent">대응할 수 없다</span></h2>
+                <p class="sub reveal">데이터는 SAP·엑셀에 흩어져 있고, 취합은 수기로 이뤄집니다. 그래서 이상은 늘 <b>사후에야</b> 인지됩니다.</p>
+            </header>
+
+            <div class="cols">
+                <div class="col reveal d2">
+                    <div class="coltag">기존 운영의 한계</div>
+                    <ul class="limit">
+                        <li><span class="ic">!</span><span class="tx"><b>데이터 분산</b><span>판매주문·재고·생산·원가가 SAP T-code와 엑셀에 산재 — 한 화면에 없음</span></span></li>
+                        <li><span class="ic">!</span><span class="tx"><b>수기 취합</b><span>월말마다 사람이 엑셀을 모으고 가공 — 시간 소모와 오류 위험</span></span></li>
+                        <li><span class="ic">!</span><span class="tx"><b>가시성 부족</b><span>부서·사용자마다 기준이 달라 동일한 현황을 공유하기 어려움</span></span></li>
+                        <li><span class="ic">!</span><span class="tx"><b>사후 인지</b><span>유효기한·재고·일정 이상을 뒤늦게 발견 → 선제 대응 불가</span></span></li>
+                    </ul>
+                </div>
+                <div class="col reveal d3">
+                    <div class="coltag">실제로 숨어 있던 리스크 · Apr 2026</div>
+                    <div class="snap">
+                        <div class="scell red"><span class="dot red"></span><div class="sl">Expiry Risk · 유효기한</div><div class="sv">15.7<small>%</small></div></div>
+                        <div class="scell"><span class="dot amber"></span><div class="sl">FG Days of Supply</div><div class="sv">38<small>일</small></div></div>
+                        <div class="scell"><span class="dot amber"></span><div class="sl">CMO Schedule Attainment</div><div class="sv">91.5<small>%</small></div></div>
+                        <div class="scell"><span class="dot amber"></span><div class="sl">Quality Events · open</div><div class="sv">18<small>건</small></div></div>
+                    </div>
+                    <div class="snapnote">대부분 <b>Amber(점검 구간)</b>, 유효기한 위험만 <b>Red</b> — 흩어진 데이터 속에 묻혀 있던 신호를 한 화면에서 즉시 식별.</div>
+                </div>
+            </div>
+        </div>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">03 / <b>10</b></span></footer>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 04 — SOLUTION ① : 대시보드 개요
+         ============================================================ -->
+    <section class="slide">
+        <div class="pad">
+            <header class="shead">
+                <div class="kicker reveal"><span class="kbar"></span>03 · SOLUTION — 대시보드 개요</div>
+                <h2 class="reveal">하나의 화면에서 <span class="accent">공급망 전체</span>를 본다</h2>
+            </header>
+
+            <!-- 4 headline figures -->
+            <div class="solbar reveal d1">
+                <div class="solpill"><div class="pn">11<span>관점</span></div><div class="pl">Cockpit부터 PMO까지<br>13개 탭 · 11개 핵심 관점</div></div>
+                <div class="solpill"><div class="pn">17<span>KPI</span></div><div class="pl">RAG 신호등으로<br>전 화면 일관 자동 채점</div></div>
+                <div class="solpill"><div class="pn">8<span>디텍터</span></div><div class="pl">엑셀 업로드 시<br>파일 종류 자동 인식</div></div>
+                <div class="solpill"><div class="pn">100<span>%</span></div><div class="pl">엑셀 In/Out 기반<br>업로드 이력·감사 보존</div></div>
+            </div>
+
+            <!-- tab grid (12 surfaces) -->
+            <div class="tabgrid reveal d3">
+                <div class="tabc" style="--accent:#EA002C"><div><div class="tt">CEO Cockpit</div><div class="ts">4대 핵심 KPI + 부문 요약, 클릭 드릴다운</div></div><div class="pip">경영 요약</div></div>
+                <div class="tabc" style="--accent:#1E2F66"><div><div class="tt">Supply Chain</div><div class="ts">제조 플로우·World Map·BOM·Supply Matrix</div></div><div class="pip">공급망</div></div>
+                <div class="tabc" style="--accent:#1E2F66"><div><div class="tt">Forecast &amp; Planning</div><div class="ts">시장별 S&amp;OP, 수요예측 vs 판매계획</div></div><div class="pip">수요·계획</div></div>
+                <div class="tabc" style="--accent:#1E2F66"><div><div class="tt">Sales</div><div class="ts">판매주문·SK LSI 판매·OTIF 매트릭스</div></div><div class="pip">판매</div></div>
+                <div class="tabc" style="--accent:#1E2F66"><div><div class="tt">Inventory</div><div class="ts">FG DOS·단계별 재고·유효기한 Aging</div></div><div class="pip">재고</div></div>
+                <div class="tabc" style="--accent:#1E2F66"><div><div class="tt">Production</div><div class="ts">PR→PO→GR 정합·CMO 일정·리드타임</div></div><div class="pip">생산</div></div>
+                <div class="tabc" style="--accent:#1E2F66"><div><div class="tt">Plan vs PO</div><div class="ts">계획 대비 발주·입고 충족 매트릭스</div></div><div class="pip">충족</div></div>
+                <div class="tabc" style="--accent:#1E2F66"><div><div class="tt">Quality</div><div class="ts">Deviation·BRR·CAPA·Ageing·Pareto</div></div><div class="pip">품질</div></div>
+                <div class="tabc" style="--accent:#1E2F66"><div><div class="tt">Contract / Cash</div><div class="ts">예산 vs 실적·CMO별 비용·COGS</div></div><div class="pip">계약·원가</div></div>
+                <div class="tabc" style="--accent:#1E2F66"><div><div class="tt">Project PMO</div><div class="ts">포트폴리오 RAG·Gantt·의사결정 로그</div></div><div class="pip">PMO</div></div>
+                <div class="tabc" style="--accent:#EA002C"><div><div class="tt">Data Upload</div><div class="ts">엑셀 자동 인식·적재·이력·미리보기</div></div><div class="pip">데이터</div></div>
+                <div class="tabc" style="--accent:#EA002C"><div><div class="tt">Targets</div><div class="ts">RAG 임계값(Green/Amber/Red) 중앙 관리</div></div><div class="pip">기준값</div></div>
+            </div>
+        </div>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">04 / <b>10</b></span></footer>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 05 — SOLUTION ② : 핵심 KPI & RAG
+         ============================================================ -->
+    <section class="slide" data-theme="dark">
+        <div class="pad">
+            <header class="shead">
+                <div class="kicker reveal"><span class="kbar"></span>04 · SOLUTION — 핵심 KPI &amp; RAG</div>
+                <h2 class="reveal">4대 핵심 KPI를 <span class="accent">신호등</span>으로 즉시 판단</h2>
+            </header>
+
+            <div class="kpigrid">
+                <div class="kpic reveal d1">
+                    <div class="kh"><div><div class="kname">정시 정량 납품</div><div class="keng">OTIF %</div></div>
+                        <span class="ragpill na"><span class="pd"></span>N/A · 집계 전</span></div>
+                    <div class="kval">— <small>목표 ≥ 98%</small></div>
+                    <div class="kmeta"><div><span>공식</span><b>정시 납품 수량 ÷ 총 수량</b></div><div><span>소스</span><b>ZSDBPR0330</b></div></div>
+                </div>
+                <div class="kpic reveal d2">
+                    <div class="kh"><div><div class="kname">판매 계획 정확도</div><div class="keng">Sales Plan vs Actual %</div></div>
+                        <span class="ragpill amber"><span class="pd"></span>AMBER · 주의</span></div>
+                    <div class="kval">92.3<small>% · 변동 −4.3%</small></div>
+                    <div class="kmeta"><div><span>목표</span><b>≥ 90%</b></div><div><span>소스</span><b>Sales Plan + ZSDBPR0330</b></div></div>
+                </div>
+                <div class="kpic reveal d3">
+                    <div class="kh"><div><div class="kname">완제품 재고 일수</div><div class="keng">FG Days of Supply</div></div>
+                        <span class="ragpill amber"><span class="pd"></span>AMBER · 주의</span></div>
+                    <div class="kval">38<small>일 · 목표 45–75일</small></div>
+                    <div class="kmeta"><div><span>공식</span><b>재고 수량 ÷ 일평균 소요(ADU)</b></div><div><span>소스</span><b>MB52 + 수요예측</b></div></div>
+                </div>
+                <div class="kpic reveal d4">
+                    <div class="kh"><div><div class="kname">CMO 일정 달성율</div><div class="keng">Schedule Attainment %</div></div>
+                        <span class="ragpill amber"><span class="pd"></span>AMBER · 주의</span></div>
+                    <div class="kval">91.5<small>% · 목표 ≥ 95%</small></div>
+                    <div class="kmeta"><div><span>공식</span><b>정시 입고 배치 ÷ 총 배치</b></div><div><span>소스</span><b>ZMMBPR0030 + MB51</b></div></div>
+                </div>
+            </div>
+
+            <div class="raglegend reveal d5">
+                <span><i style="background:var(--rag-green)"></i>Green · 목표 달성</span>
+                <span><i style="background:var(--rag-amber)"></i>Amber · 경고(주의 구간)</span>
+                <span><i style="background:var(--rag-red)"></i>Red · 미달</span>
+                <span><i style="background:var(--rag-na)"></i>N/A · 집계 전</span>
+                <span style="margin-left:auto;color:var(--on-navy-soft)">임계값은 <b style="color:#fff">Targets 탭</b>에서 중앙 관리 → 17개 KPI 자동 채점</span>
+            </div>
+        </div>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">05 / <b>10</b></span></footer>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 06 — 구현과정 ① : 데이터 흐름 & Ingest
+         ============================================================ -->
+    <section class="slide">
+        <div class="pad">
+            <header class="shead">
+                <div class="kicker reveal"><span class="kbar"></span>05 · 구현과정 — 데이터 흐름</div>
+                <h2 class="reveal">SAP 추출부터 화면까지, <span class="accent">자동으로 흐른다</span></h2>
+                <p class="sub reveal">엑셀을 끌어다 놓으면 8개 디텍터가 파일 종류를 인식하고, KPI·RAG가 자동 계산되어 화면에 반영됩니다.</p>
+            </header>
+
+            <div class="pipe reveal d2">
+                <div class="pnode"><div class="pi">SOURCE</div><div class="ph">SAP Export</div><div class="pp">엑셀 (T-code 추출)</div></div>
+                <div class="parrow">›</div>
+                <div class="pnode"><div class="pi">INGEST</div><div class="ph">업로드</div><div class="pp">폴더 드롭 · 드래그</div></div>
+                <div class="parrow">›</div>
+                <div class="pnode core"><div class="pi">DETECT</div><div class="ph">8개 디텍터</div><div class="pp">자동 인식 · 파싱 · 미리보기</div></div>
+                <div class="parrow">›</div>
+                <div class="pnode core"><div class="pi">COMPUTE</div><div class="ph">KPI · RAG</div><div class="pp">17개 KPI 자동 채점</div></div>
+                <div class="parrow">›</div>
+                <div class="pnode out"><div class="pi">OUTPUT</div><div class="ph">대시보드</div><div class="pp">13개 탭 · 신호등</div></div>
+            </div>
+
+            <div class="scalebox reveal d4">
+                <div class="sbh">실제 적재 데이터 규모 · Apr 2026 <span class="tot">합계 ≈ 12,700 행</span></div>
+                <div class="scalechips">
+                    <div class="dchip"><div class="dn">8,055</div><div class="dl">LSI 판매 · MB51</div></div>
+                    <div class="dchip"><div class="dn">2,536</div><div class="dl">GR 입고 · MB51</div></div>
+                    <div class="dchip"><div class="dn">1,317</div><div class="dl">COGS 원가 · ZCOCMR3051</div></div>
+                    <div class="dchip"><div class="dn">256</div><div class="dl">Shelf Life · ZMMBPR1000</div></div>
+                    <div class="dchip"><div class="dn">255</div><div class="dl">창고 재고 · MB52</div></div>
+                    <div class="dchip"><div class="dn">145</div><div class="dl">판매주문 · ZSDBPR0330</div></div>
+                    <div class="dchip"><div class="dn">128</div><div class="dl">PR · ZMMBPR0030</div></div>
+                    <div class="dchip"><div class="dn">8</div><div class="dl">수요예측 시장</div></div>
+                </div>
+            </div>
+        </div>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">06 / <b>10</b></span></footer>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 07 — 구현과정 ② : 기술 아키텍처
+         ============================================================ -->
+    <section class="slide">
+        <div class="pad">
+            <header class="shead">
+                <div class="kicker reveal"><span class="kbar"></span>06 · 구현과정 — 기술 아키텍처</div>
+                <h2 class="reveal">단일 HTML에서 <span class="accent">3-tier</span>로 재설계</h2>
+                <p class="sub reveal">공유 불가능한 브라우저 단일 파일에서, 다중 사용자가 같은 데이터를 실시간으로 보는 구조로 전환 중입니다.</p>
+            </header>
+
+            <div class="archtbl reveal d2">
+                <div class="trow th"><div>구성</div><div class="now">As-Is · 현행</div><div class="next">To-Be · 목표</div></div>
+                <div class="trow"><div class="lab">Frontend</div><div class="asis">단일 HTML (React/CDN, 약 21K줄)</div><div class="tobe"><b>React (Vite)</b> 컴포넌트 구조</div></div>
+                <div class="trow"><div class="lab">Backend</div><div class="asis">없음 (브라우저 JS)</div><div class="tobe"><b>FastAPI (Python)</b> 중앙 상태 API</div></div>
+                <div class="trow"><div class="lab">Data</div><div class="asis">브라우저 localStorage</div><div class="tobe"><b>SQLite → PostgreSQL → DWH</b></div></div>
+                <div class="trow"><div class="lab">사용자</div><div class="asis">단일 사용자 · 공유 불가</div><div class="tobe"><b>다중 사용자 · 중앙 공유</b></div></div>
+            </div>
+
+            <div class="p1note reveal d3">
+                <span class="tag">P1 완료</span>
+                <b>기반 구축 완료</b>
+                <span>— 중앙 상태 API(/api/state) · SQLite · 공유 컴포넌트 · RAG 엔진 · Targets 탭 (P2–3 전체 화면 이식 진행 중)</span>
+            </div>
+        </div>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">07 / <b>10</b></span></footer>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 08 — 대시보드 시연 (라이브 임베드)
+         ============================================================ -->
+    <section class="slide" data-theme="dark">
+        <div class="pad">
+            <header class="shead">
+                <div class="kicker reveal"><span class="kbar"></span>07 · 대시보드 시연 — LIVE</div>
+                <h2 class="reveal">실데이터 대시보드 <span class="accent">라이브 시연</span></h2>
+            </header>
+
+            <div class="demo">
+                <div class="demo-side reveal d1">
+                    <div class="dscreen"><span class="num">01</span><span class="dn">CEO Cockpit</span><span class="dd">경영 요약</span></div>
+                    <div class="dscreen"><span class="num">02</span><span class="dn">Supply Chain</span><span class="dd">제조 플로우</span></div>
+                    <div class="dscreen"><span class="num">03</span><span class="dn">Inventory</span><span class="dd">유효기한 Aging</span></div>
+                    <div class="dscreen"><span class="num">04</span><span class="dn">Production</span><span class="dd">PR→PO→GR</span></div>
+                    <div class="dscreen"><span class="num">05</span><span class="dn">Quality</span><span class="dd">BRR · CAPA</span></div>
+                    <div class="dscreen"><span class="num">06</span><span class="dn">Targets</span><span class="dd">RAG 임계값</span></div>
+                    <div style="margin-top:auto;font-size:15px;color:var(--on-navy-soft);line-height:1.5">
+                        오른쪽은 실제 Apr 2026 데이터가 임베드된 Standalone 대시보드입니다. 발표 시 새 창에서 전체화면으로 드릴다운 시연을 진행합니다.
+                    </div>
+                </div>
+                <div class="demo-live reveal d2">
+                    <iframe src="Reference/Cenobamate_GSM_Dashboard_Standalone.html" title="GSM Dashboard — Live (Apr 2026)" loading="lazy"></iframe>
+                    <span class="demo-cta">LIVE · 실데이터 Apr 2026</span>
+                </div>
+            </div>
+        </div>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">08 / <b>10</b></span></footer>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 09 — 추후 계획 : 로드맵 + 핵심 가치
+         ============================================================ -->
+    <section class="slide">
+        <div class="pad">
+            <header class="shead">
+                <div class="kicker reveal"><span class="kbar"></span>08 · 추후 계획 — 로드맵 &amp; 기대효과</div>
+                <h2 class="reveal">기반은 완성, 이제 <span class="accent">전사 확장</span>으로</h2>
+            </header>
+
+            <div class="phases reveal d1">
+                <div class="phase done"><span class="pst">✓ 완료</span><h3>P1 · 기반 구축</h3><p>중앙 상태 API · SQLite · 공유 컴포넌트 · RAG 엔진 · Targets 탭</p></div>
+                <div class="phase prog"><span class="pst">진행 중</span><h3>P2–3 · 화면 이식</h3><p>11개 화면 기능 패리티 · 차트 · 드릴다운 · 엑셀 업로드 UX</p></div>
+                <div class="phase next"><span class="pst">예정</span><h3>P4 · 통합 Cockpit</h3><p>경영 요약을 단일 화면으로 통합 · 부문 드릴다운 연계</p></div>
+                <div class="phase plan"><span class="pst">계획</span><h3>운영 · 확장</h3><p>PostgreSQL(다중사용자·인증·백업) → DWH/BI · 전사 SCM 연동</p></div>
+            </div>
+
+            <div class="valuerow reveal d3">
+                <div class="vpill"><div class="vk">ONE SOURCE</div><div class="vt">전사 단일 데이터</div><div class="vd">중앙 DB로 부서·사용자가 동일 기준을 실시간 공유</div></div>
+                <div class="vpill"><div class="vk">SPEED</div><div class="vt">의사결정 속도 ↑</div><div class="vd">KPI 자동 RAG로 현황 파악·판단을 즉시화</div></div>
+                <div class="vpill"><div class="vk">PROACTIVE</div><div class="vt">선제적 리스크 대응</div><div class="vd">재고·유효기한·일정 이상을 조기에 감지</div></div>
+            </div>
+
+            <div class="extstrip reveal d4">
+                <span class="el">확장 기반</span>
+                <span class="extchip">Entra ID 인증</span>
+                <span class="extchip">PostgreSQL</span>
+                <span class="extchip">Power BI / DWH</span>
+                <span class="extchip">전사 SCM Master Plan 연동</span>
+                <span class="extchip">Azure Static Web Apps 배포</span>
+            </div>
+        </div>
+        <footer class="sfoot"><span class="brand">SK<b>바이오팜</b> · GSM Dashboard</span><span class="pg">09 / <b>10</b></span></footer>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 10 — CLOSING / Q&A
+         ============================================================ -->
+    <section class="slide" data-theme="dark">
+        <div class="close-wrap">
+            <div class="kicker reveal" style="margin-bottom:6px"><span class="kbar"></span>마무리 · KEY TAKEAWAYS</div>
+            <h2 class="reveal">흩어진 데이터를 <span class="em">하나의 판단 화면</span>으로</h2>
+            <div class="takes">
+                <div class="take reveal d1"><div class="tn">01</div><div class="tt">복잡도를 가시화</div><div class="td">10시장·7CMO·5단계 BOM의 공급망을 한 화면에서 조망</div></div>
+                <div class="take reveal d2"><div class="tn">02</div><div class="tt">신호등으로 판단</div><div class="td">17개 KPI를 RAG로 자동 채점 — 이상을 즉시 식별·선제 대응</div></div>
+                <div class="take reveal d3"><div class="tn">03</div><div class="tt">전사 확장 기반</div><div class="td">3-tier 재설계로 다중 사용자·BI·SCM 연동까지 확장</div></div>
+            </div>
+            <div class="close-foot reveal d4">
+                <span class="qa">Q &amp; A</span>
+                <span class="ln"></span>
+                <span class="by">SK<b style="color:var(--red)">바이오팜</b> · Global Supply &amp; Manufacturing · 2026.06</span>
+            </div>
+        </div>
+    </section>
+
+</main>
+</div>
+
+<!-- ============================================================
+     DECK CHROME — HUD navigation (outside the 1920×1080 stage)
+     ============================================================ -->
+<div class="hud" id="hud">
+    <button id="prev" aria-label="이전">‹</button>
+    <div class="dots" id="dots"></div>
+    <span class="count"><b id="cur">1</b> / 10</span>
+    <button id="next" aria-label="다음">›</button>
+    <button id="fs" aria-label="전체화면">⤢</button>
+</div>
+
+<!-- Inline editing affordance -->
+<div class="edit-hotzone"></div>
+<button class="edit-toggle" id="editToggle" title="편집 모드 (E)">✏️</button>
+
+<script>
+/* ============================================================
+   SLIDE CONTROLLER — fixed-stage scaling + navigation
+   ============================================================ */
+class Deck{
+    constructor(){
+        this.stage=document.getElementById('deckStage');
+        this.slides=[...document.querySelectorAll('.slide')];
+        this.i=0;
+        this.buildDots();
+        this.scale();
+        window.addEventListener('resize',()=>this.scale());
+        this.bindNav();
+        this.show(0);
+    }
+    /* Uniformly scale the 1920×1080 stage to the viewport (letterbox/pillarbox). */
+    scale(){
+        const f=Math.min(window.innerWidth/1920,window.innerHeight/1080);
+        const x=(window.innerWidth-1920*f)/2, y=(window.innerHeight-1080*f)/2;
+        this.stage.style.transform=`translate(${x}px,${y}px) scale(${f})`;
+    }
+    buildDots(){
+        const d=document.getElementById('dots');
+        this.slides.forEach((_,k)=>{
+            const i=document.createElement('i');
+            i.addEventListener('click',()=>this.show(k));
+            d.appendChild(i);
+        });
+        this.dots=[...d.children];
+    }
+    show(n){
+        this.i=Math.max(0,Math.min(n,this.slides.length-1));
+        this.slides.forEach((s,k)=>{
+            s.classList.toggle('active',k===this.i);
+            s.classList.toggle('visible',k===this.i);
+        });
+        this.dots.forEach((d,k)=>d.classList.toggle('on',k===this.i));
+        document.getElementById('cur').textContent=this.i+1;
+        document.getElementById('progress').style.width=((this.i+1)/this.slides.length*100)+'%';
+    }
+    next(){this.show(this.i+1);}
+    prev(){this.show(this.i-1);}
+    bindNav(){
+        document.getElementById('next').onclick=()=>this.next();
+        document.getElementById('prev').onclick=()=>this.prev();
+        document.getElementById('fs').onclick=()=>this.fullscreen();
+        /* Keyboard */
+        document.addEventListener('keydown',e=>{
+            if(e.target.getAttribute && e.target.getAttribute('contenteditable')==='true') return;
+            if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();this.next();}
+            else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();this.prev();}
+            else if(e.key==='Home'){this.show(0);}
+            else if(e.key==='End'){this.show(this.slides.length-1);}
+            else if(e.key==='f'||e.key==='F'){this.fullscreen();}
+        });
+        /* Touch swipe */
+        let x0=null;
+        const v=document.querySelector('.deck-viewport');
+        v.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+        v.addEventListener('touchend',e=>{
+            if(x0===null)return;
+            const dx=e.changedTouches[0].clientX-x0;
+            if(Math.abs(dx)>60){dx<0?this.next():this.prev();}
+            x0=null;
+        },{passive:true});
+        /* Click left/right halves (ignore links, iframe, edit controls) */
+        v.addEventListener('click',e=>{
+            if(e.target.closest('a,button,iframe,[contenteditable="true"],.hud,.edit-toggle,.edit-hotzone'))return;
+            if(document.body.classList.contains('editing'))return;
+            (e.clientX<window.innerWidth/2)?this.prev():this.next();
+        });
+    }
+    fullscreen(){
+        if(!document.fullscreenElement)document.documentElement.requestFullscreen();
+        else document.exitFullscreen();
+    }
+}
+const deck=new Deck();
+
+/* ============================================================
+   INLINE EDITING — hover hotzone (400ms grace) + E key
+   ============================================================ */
+const editor={
+    isActive:false,
+    toggle(){
+        this.isActive=!this.isActive;
+        document.body.classList.toggle('editing',this.isActive);
+        document.getElementById('editToggle').classList.toggle('active',this.isActive);
+        document.querySelectorAll('.slide h1,.slide h2,.slide h3,.slide p,.slide span,.slide div,.slide b,.slide li')
+            .forEach(el=>{
+                if(el.children.length===0){el.setAttribute('contenteditable',this.isActive);}
+            });
+    }
+};
+const hz=document.querySelector('.edit-hotzone'), et=document.getElementById('editToggle');
+let hideT=null;
+hz.addEventListener('mouseenter',()=>{clearTimeout(hideT);et.classList.add('show');});
+hz.addEventListener('mouseleave',()=>{hideT=setTimeout(()=>{if(!editor.isActive)et.classList.remove('show');},400);});
+et.addEventListener('mouseenter',()=>clearTimeout(hideT));
+et.addEventListener('mouseleave',()=>{hideT=setTimeout(()=>{if(!editor.isActive)et.classList.remove('show');},400);});
+et.addEventListener('click',()=>editor.toggle());
+hz.addEventListener('click',()=>editor.toggle());
+document.addEventListener('keydown',e=>{
+    if((e.key==='e'||e.key==='E') && !(e.target.getAttribute && e.target.getAttribute('contenteditable')==='true')){
+        editor.toggle();
+    }
+});
+</script>
+</body>
+</html>
