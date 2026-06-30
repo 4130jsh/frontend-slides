@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cenobamate 공급망 — Value Stream Map & Network</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--ink:#EAF0FB;--soft:#A9B6D6;--teal:#5FD6CE;--green:#9FE0A8;--amber:#E6C36A;--mat:#DCE6FA;--red:#FF6B83;}
+body{font-family:'IBM Plex Sans KR','Segoe UI',sans-serif;background:radial-gradient(120% 120% at 50% 0%,#16234f,#0b1430);color:var(--ink);padding:30px clamp(14px,3vw,48px) 50px;}
+.wrap{max-width:1640px;margin:0 auto;}
+h1{font-family:'Sora','Segoe UI',sans-serif;font-weight:800;font-size:clamp(22px,2.8vw,32px);}
+h1 b{color:var(--teal);}
+.sub{color:var(--soft);font-size:14px;margin-top:6px;}
+.sec{margin-top:22px;}
+.sectitle{font-family:'Sora',sans-serif;font-weight:700;font-size:18px;display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.sectitle .n{width:26px;height:26px;border-radius:7px;background:var(--teal);color:#0b1430;display:grid;place-items:center;font-size:14px;font-weight:800;}
+.sectitle span{color:var(--soft);font-weight:500;font-size:13px;}
+/* VSM */
+.vsm{display:flex;align-items:stretch;gap:0;overflow-x:auto;padding-bottom:6px;}
+.vbox{flex:1 0 0;min-width:150px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-top:4px solid var(--teal);border-radius:12px;padding:13px 14px;}
+.vbox.single{border-top-color:var(--red);box-shadow:0 0 26px rgba(255,107,131,.18);}
+.vbox.mkt{border-top-color:var(--amber);}
+.vcode{font-family:'Sora',sans-serif;font-weight:800;font-size:12px;letter-spacing:.06em;color:var(--teal);}
+.vbox.single .vcode{color:var(--red);}
+.vbox.mkt .vcode{color:var(--amber);}
+.vname{font-family:'Sora',sans-serif;font-weight:700;font-size:17px;color:#fff;margin-top:5px;}
+.vcmo{font-size:13.5px;color:#fff;margin-top:8px;font-weight:600;}
+.vmeta{font-size:12.5px;color:var(--soft);margin-top:3px;}
+.vnote{font-size:12px;color:var(--soft);margin-top:8px;padding-top:7px;border-top:1px solid rgba(255,255,255,.1);line-height:1.4;}
+.varr{flex:0 0 60px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--teal);}
+.varr span{font-size:30px;font-weight:800;line-height:1;}
+.varr em{font-style:normal;font-size:10.5px;color:var(--soft);margin-top:5px;text-align:center;line-height:1.25;}
+/* Network */
+.netbox{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:10px 14px;}
+svg.net{width:100%;height:auto;display:block;}
+.net .cl{fill:var(--soft);font-family:'Sora',sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;}
+.net .grp{font-family:'Sora',sans-serif;font-weight:800;font-size:12px;}
+.net .grp.gfp{fill:var(--teal);} .net .grp.gdp{fill:var(--green);} .net .grp.gapi{fill:var(--amber);}
+.net .ndt{fill:#fff;font-family:'Sora',sans-serif;font-weight:700;font-size:15px;}
+.net .nds{fill:var(--soft);font-size:11.5px;}
+.net .nrsm{fill:#13224B;stroke:#5b6ea0;stroke-width:1.5;}
+.net .napi{fill:#3a1530;stroke:var(--red);stroke-width:2.4;}
+.net .ndp{fill:#13224B;stroke:#DCE6FA;stroke-width:1.6;}
+.net .nfp{fill:#13224B;stroke:#7fbfb8;stroke-width:1.5;}
+.net .pfp{fill:rgba(95,214,206,.12);stroke:var(--teal);stroke-width:1.4;}
+.net .pdp{fill:rgba(159,224,168,.10);stroke:var(--green);stroke-width:1.4;}
+.net .papi{fill:rgba(230,195,106,.10);stroke:var(--amber);stroke-width:1.4;}
+.net .ew{fill:none;stroke:var(--mat);stroke-width:2.4;opacity:.9;}
+.net .et{fill:none;stroke:var(--teal);stroke-width:1.7;opacity:.8;}
+.net .eg{fill:none;stroke:var(--green);stroke-width:1.7;opacity:.7;}
+.net .ea{fill:none;stroke:var(--amber);stroke-width:1.7;opacity:.7;stroke-dasharray:6 5;}
+.legend{display:flex;flex-wrap:wrap;gap:9px 20px;margin-top:12px;font-size:13px;color:var(--soft);}
+.legend i{display:inline-block;width:20px;height:3px;border-radius:2px;margin-right:7px;vertical-align:4px;}
+.legend i.dash{background:repeating-linear-gradient(90deg,var(--amber) 0 6px,transparent 6px 11px);}
+.foot{margin-top:18px;color:var(--soft);font-size:12.5px;line-height:1.6;}
+.foot b{color:var(--red);}
+</style></head><body><div class="wrap">
+<h1>Cenobamate 공급망 — <b>Value Stream Map</b> &amp; <b>Supply Chain Network</b></h1>
+<div class="sub">RSM → API → DP → Semi-FP → FP CMO와 10개 시장·파트너를 한 장표에. 출처 · Cenobamate BOM Tree v1</div>
+
+<div class="sec">
+  <div class="sectitle"><span class="n">1</span>Value Stream Map <span>· 가치 흐름 (좌→우, 단계별 CMO·전환)</span></div>
+  <div class="vsm"><div class="vbox">
+      <div class="vcode">L0 · RSM</div>
+      <div class="vname">원료출발물질</div>
+      <div class="vcmo">Lianhe · Wisdom</div>
+      <div class="vmeta">中 · 200/180 kg·batch</div>
+      <div class="vnote">YKP1941 3종 (이중 소싱)</div>
+    </div><div class="varr"><span>›</span><em>÷0.861 (전환비)</em></div><div class="vbox single">
+      <div class="vcode">L1 · API</div>
+      <div class="vname">원료의약품</div>
+      <div class="vcmo">SK biotek ★단독</div>
+      <div class="vmeta">韓 · 482 kg·batch</div>
+      <div class="vnote">US/EU 합성 + ROW1/CA 코드변환</div>
+    </div><div class="varr"><span>›</span><em>80k–5k TAB/kg</em></div><div class="vbox">
+      <div class="vcode">L2 · DP</div>
+      <div class="vname">정제 (Tablet)</div>
+      <div class="vcmo">Patheon · Avara</div>
+      <div class="vmeta">CA / US 전용</div>
+      <div class="vnote">Common Blend · 함량별 배치</div>
+    </div><div class="varr"><span>›</span><em>1/30 BTL·1/7~14 BLS</em></div><div class="vbox">
+      <div class="vcode">L3 · SP</div>
+      <div class="vname">반제품 (Semi-FP)</div>
+      <div class="vcmo">Britestock · Blister Strip</div>
+      <div class="vmeta">Patheon / PCI CA</div>
+      <div class="vnote">병충전 전 · 블리스터 스트립</div>
+    </div><div class="varr"><span>›</span><em>포장·조립</em></div><div class="vbox">
+      <div class="vcode">L4 · FP</div>
+      <div class="vname">완제품·포장</div>
+      <div class="vcmo">Bottle · Blister Card</div>
+      <div class="vmeta">Patheon·PCI US / PCI CA</div>
+      <div class="vnote">직접 또는 Britestock 경유(택1)</div>
+    </div><div class="varr"><span>›</span><em>공급</em></div><div class="vbox mkt">
+      <div class="vcode">L5 · MKT</div>
+      <div class="vname">시장 공급</div>
+      <div class="vcmo">10개 시장 · 9개 파트너</div>
+      <div class="vmeta">FP 2 · DP 3 · API 5</div>
+      <div class="vnote">SK LSI·Ignis·Knight·Dexcel 등</div>
+    </div></div>
+</div>
+
+<div class="sec">
+  <div class="sectitle"><span class="n">2</span>Supply Chain Network Diagram <span>· 노드·연결 (계층형)</span></div>
+  <div class="netbox"><svg class="net" viewBox="0 0 1600 590" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Cenobamate Supply Chain Network Diagram">
+<defs><marker id="mw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#DCE6FA"/></marker><marker id="mt" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#5FD6CE"/></marker><marker id="mg" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#9FE0A8"/></marker><marker id="ma" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#E6C36A"/></marker></defs>
+<path d="M174 96 C 237 96 237 143 300 143" class="ew" marker-end="url(#mw)"/>
+<path d="M174 176 C 237 176 237 143 300 143" class="ew" marker-end="url(#mw)"/>
+<path d="M470 143 C 515 143 515 103 560 103" class="ew" marker-end="url(#mw)"/>
+<path d="M470 143 C 515 143 515 256 560 256" class="ew" marker-end="url(#mw)"/>
+<path d="M720 103 C 770 103 770 96 820 96" class="ew" marker-end="url(#mw)"/>
+<path d="M720 256 C 770 256 770 251 820 251" class="ew" marker-end="url(#mw)"/>
+<path d="M470 143 C 850 143 850 372 1230 372" class="ea" marker-end="url(#ma)"/>
+<path d="M470 143 C 850 143 850 418 1230 418" class="ea" marker-end="url(#ma)"/>
+<path d="M470 143 C 850 143 850 464 1230 464" class="ea" marker-end="url(#ma)"/>
+<path d="M470 143 C 850 143 850 510 1230 510" class="ea" marker-end="url(#ma)"/>
+<path d="M470 143 C 850 143 850 556 1230 556" class="ea" marker-end="url(#ma)"/>
+<path d="M720 103 C 975 103 975 200 1230 200" class="eg" marker-end="url(#mg)"/>
+<path d="M720 103 C 975 103 975 246 1230 246" class="eg" marker-end="url(#mg)"/>
+<path d="M720 103 C 975 103 975 292 1230 292" class="eg" marker-end="url(#mg)"/>
+<path d="M980 251 C 1105 251 1105 74 1230 74" class="et" marker-end="url(#mt)"/>
+<path d="M980 96 C 1105 96 1105 74 1230 74" class="et" marker-end="url(#mt)"/>
+<path d="M980 96 C 1105 96 1105 120 1230 120" class="et" marker-end="url(#mt)"/>
+<path d="M720 103 C 975 103 975 120 1230 120" class="et" marker-end="url(#mt)"/>
+<text x="99" y="18" class="cl" text-anchor="middle">RSM 원료</text>
+<g class="nd"><rect x="24" y="70" width="150" height="52" rx="10" class="nrsm"/><text x="99" y="94" class="ndt" text-anchor="middle">Lianhe</text><text x="99" y="112" class="nds" text-anchor="middle">中 · YKP1941</text></g>
+<g class="nd"><rect x="24" y="150" width="150" height="52" rx="10" class="nrsm"/><text x="99" y="174" class="ndt" text-anchor="middle">Wisdom</text><text x="99" y="192" class="nds" text-anchor="middle">中 · YKP1941</text></g>
+<text x="385" y="18" class="cl" text-anchor="middle">API 원료의약품</text>
+<g class="nd"><rect x="300" y="95" width="170" height="96" rx="10" class="napi"/><text x="385" y="119" class="ndt" text-anchor="middle">SK biotek</text><text x="385" y="137" class="nds" text-anchor="middle">韓 · 482kg/batch</text><text x="385" y="153" class="nds" text-anchor="middle">★ 전 시장 단독</text></g>
+<text x="640" y="18" class="cl" text-anchor="middle">DP 정제</text>
+<g class="nd"><rect x="560" y="70" width="160" height="66" rx="10" class="ndp"/><text x="640" y="94" class="ndt" text-anchor="middle">Patheon</text><text x="640" y="112" class="nds" text-anchor="middle">CA · Primary</text><text x="640" y="128" class="nds" text-anchor="middle">+ Britestock·Bottle</text></g>
+<g class="nd"><rect x="560" y="230" width="160" height="52" rx="10" class="ndp"/><text x="640" y="254" class="ndt" text-anchor="middle">Avara</text><text x="640" y="272" class="nds" text-anchor="middle">US 전용</text></g>
+<text x="900" y="18" class="cl" text-anchor="middle">Semi-FP · FP 포장</text>
+<g class="nd"><rect x="820" y="70" width="160" height="52" rx="10" class="nfp"/><text x="900" y="94" class="ndt" text-anchor="middle">PCI CA</text><text x="900" y="112" class="nds" text-anchor="middle">Blister Strip·Card</text></g>
+<g class="nd"><rect x="820" y="225" width="160" height="52" rx="10" class="nfp"/><text x="900" y="249" class="ndt" text-anchor="middle">PCI US</text><text x="900" y="267" class="nds" text-anchor="middle">Bottle (Avara)</text></g>
+<text x="1405" y="18" class="cl" text-anchor="middle">시장 · 파트너 (10)</text>
+<text x="1230" y="46" class="grp gfp">완제품 FP</text>
+<g class="nd"><rect x="1230" y="54" width="350" height="40" rx="10" class="pfp"/><text x="1405" y="78" class="ndt" text-anchor="middle">US</text><text x="1405" y="96" class="nds" text-anchor="middle">SK Life Science</text></g>
+<g class="nd"><rect x="1230" y="100" width="350" height="40" rx="10" class="pfp"/><text x="1405" y="124" class="ndt" text-anchor="middle">China</text><text x="1405" y="142" class="nds" text-anchor="middle">Ignis</text></g>
+<text x="1230" y="172" class="grp gdp">정제 DP</text>
+<g class="nd"><rect x="1230" y="180" width="350" height="40" rx="10" class="pdp"/><text x="1405" y="204" class="ndt" text-anchor="middle">Hong Kong</text><text x="1405" y="222" class="nds" text-anchor="middle">Ignis</text></g>
+<g class="nd"><rect x="1230" y="226" width="350" height="40" rx="10" class="pdp"/><text x="1405" y="250" class="ndt" text-anchor="middle">Canada</text><text x="1405" y="268" class="nds" text-anchor="middle">Knight</text></g>
+<g class="nd"><rect x="1230" y="272" width="350" height="40" rx="10" class="pdp"/><text x="1405" y="296" class="ndt" text-anchor="middle">Israel</text><text x="1405" y="314" class="nds" text-anchor="middle">Dexcel</text></g>
+<text x="1230" y="344" class="grp gapi">원료 API</text>
+<g class="nd"><rect x="1230" y="352" width="350" height="40" rx="10" class="papi"/><text x="1405" y="376" class="ndt" text-anchor="middle">EU</text><text x="1405" y="394" class="nds" text-anchor="middle">Angelini</text></g>
+<g class="nd"><rect x="1230" y="398" width="350" height="40" rx="10" class="papi"/><text x="1405" y="422" class="ndt" text-anchor="middle">Japan</text><text x="1405" y="440" class="nds" text-anchor="middle">Ono</text></g>
+<g class="nd"><rect x="1230" y="444" width="350" height="40" rx="10" class="papi"/><text x="1405" y="468" class="ndt" text-anchor="middle">LATAM</text><text x="1405" y="486" class="nds" text-anchor="middle">Eurofarma</text></g>
+<g class="nd"><rect x="1230" y="490" width="350" height="40" rx="10" class="papi"/><text x="1405" y="514" class="ndt" text-anchor="middle">MENA</text><text x="1405" y="532" class="nds" text-anchor="middle">Hikma</text></g>
+<g class="nd"><rect x="1230" y="536" width="350" height="40" rx="10" class="papi"/><text x="1405" y="560" class="ndt" text-anchor="middle">Korea</text><text x="1405" y="578" class="nds" text-anchor="middle">Dong-A ST</text></g>
+</svg>
+  <div class="legend">
+    <span><i style="background:var(--mat)"></i>자재 흐름 (RSM→API→DP→포장)</span>
+    <span><i style="background:var(--teal)"></i>완제품(FP) 공급</span>
+    <span><i style="background:var(--green)"></i>정제(DP) 공급</span>
+    <span><i class="dash"></i>원료(API) 공급</span>
+  </div></div>
+</div>
+<div class="foot">
+  <b>★ 단일 의존</b> 전 시장 API는 SK biotek(SKBT) 단독 합성. RSM·DP는 이원화. &nbsp;|&nbsp; API 코드변환: US→ROW1, EU→CA (무공정). &nbsp;|&nbsp; 공급 레벨 차등: FP 2(US·China) · DP 3(HK·Canada·Israel) · API 5(EU·Japan·LATAM·MENA·Korea).
+</div>
+</div></body></html>
