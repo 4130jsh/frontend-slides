@@ -25,6 +25,14 @@ svg.map{width:100%;height:auto;display:block;}
 .map .mapi{fill:var(--amber);stroke:#0E1838;stroke-width:1.5;}
 .map .mlbl{fill:#dfe7f6;font-weight:700;font-size:14px;}
 .map .msub{fill:var(--soft);font-size:12px;}
+.map .apiring{fill:none;stroke:#FF6B83;stroke-width:2.2;opacity:.5;}
+.map .apiring2{fill:none;stroke:#FF6B83;stroke-width:2;opacity:.8;}
+.map .cmonode.single{fill:#3a1530;stroke:#FF8095;stroke-width:2.8;}
+.map .singlelbl{fill:#FF8095;font-family:'Sora',sans-serif;font-weight:800;font-size:13px;}
+.callout{margin-top:16px;display:flex;align-items:center;gap:14px;background:rgba(255,107,131,.12);border:1px solid rgba(255,107,131,.5);border-left:5px solid #FF6B83;border-radius:14px;padding:14px 20px;font-size:clamp(14px,1.5vw,17px);color:var(--ink);line-height:1.5;}
+.callout .tag{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;letter-spacing:.06em;color:#fff;background:#e0455f;padding:6px 13px;border-radius:8px;white-space:nowrap;}
+.callout b{color:#FF8095;}
+.lvb.single{background:rgba(255,107,131,.22);color:#FF8095;}
 .legend{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:14px;font-size:14px;color:var(--soft);}
 .legend i{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:7px;vertical-align:-2px;}
 .legend i.sq{border-radius:3px;background:#13224B;box-shadow:inset 0 0 0 2px var(--mat);}
@@ -51,6 +59,7 @@ td.prod{color:var(--soft);}
   <h1>Cenobamate 글로벌 <b>공급망 지도</b></h1>
   <p>원료출발물질(RSM)부터 완제품(FP)까지 5단계 BOM이 4개국 제조거점을 거쳐 10개 시장·파트너로 공급됩니다. 굵은 흰 선은 <b>자재 이동</b>(RSM→API→DP), 색 선은 시장으로 가는 <b>제품 공급</b>(완제품·정제·원료)을 나타냅니다.</p>
 </header>
+<div class="callout"><span class="tag">단일 의존 포인트</span> 전 시장 API가 한국 <b>SK biotek(SKBT)</b> 한 곳에서 합성됩니다. <b>Single API Supplier</b>. RSM과 DP는 이원화되어 있지만, API는 단일 제조처에 의존합니다.</div>
 <div class="mapbox">
 <svg class="map" viewBox="0 0 1640 700" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Cenobamate global supply chain map">
 <defs><marker id="ahmat" markerWidth="8" markerHeight="8" refX="5.5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#DCE6FA"/></marker><marker id="ahfp" markerWidth="8" markerHeight="8" refX="5.5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#5FD6CE"/></marker><marker id="ahdp" markerWidth="8" markerHeight="8" refX="5.5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#9FE0A8"/></marker><marker id="ahapi" markerWidth="8" markerHeight="8" refX="5.5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#E6C36A"/></marker></defs>
@@ -100,13 +109,15 @@ td.prod{color:var(--soft);}
 <text x="1431" y="281" class="mlbl" text-anchor="start">Korea</text>
 <text x="1431" y="297" class="msub" text-anchor="start">Dong-A ST</text>
 <rect x="1249" y="209" width="16" height="16" rx="3" class="cmonode"/>
-<rect x="1394" y="227" width="16" height="16" rx="3" class="cmonode"/>
 <rect x="448" y="176" width="16" height="16" rx="3" class="cmonode"/>
 <rect x="484" y="229" width="16" height="16" rx="3" class="cmonode"/>
+<circle cx="1402" cy="235" r="25" class="apiring"/>
+<circle cx="1402" cy="235" r="17" class="apiring2"/>
+<rect x="1393" y="226" width="18" height="18" rx="3" class="cmonode single"/>
 <text x="1244" y="205" class="cmolbl" text-anchor="end">RSM · 원료출발물질</text>
 <text x="1244" y="222" class="cmosub" text-anchor="end">Lianhe · Wisdom (中)</text>
-<text x="1402" y="220" class="cmolbl" text-anchor="middle">API · 원료의약품</text>
-<text x="1402" y="203" class="cmosub" text-anchor="middle">SK biotek (韓) · 전 시장 합성</text>
+<text x="1402" y="203" class="cmolbl" text-anchor="middle">API · SK biotek (韓)</text>
+<text x="1402" y="185" class="singlelbl" text-anchor="middle">★ SINGLE API SUPPLIER · 전 시장 단독</text>
 <text x="443" y="172" class="cmolbl" text-anchor="end">DP·SP·FP (캐나다)</text>
 <text x="443" y="189" class="cmosub" text-anchor="end">Patheon · PCI CA</text>
 <text x="506" y="253" class="cmolbl" text-anchor="start">DP·FP (미국)</text>
@@ -132,11 +143,12 @@ td.prod{color:var(--soft);}
   <div class="card">
     <h2>제조 거점 (CMO) <span>7개 · 4개국</span></h2>
     <table><thead><tr><th>CMO</th><th>국가</th><th>역할</th><th>비고</th></tr></thead>
-    <tbody><tr><td class="mk">Lianhe</td><td>中 · 중국</td><td>RSM 제조</td><td class="prod">YKP1941 (200 kg/batch)</td></tr><tr><td class="mk">Wisdom</td><td>中 · 중국</td><td>RSM 제조</td><td class="prod">YKP1941 (180 kg/batch)</td></tr><tr><td class="mk">SK biotek</td><td>韓 · 한국</td><td>API 합성 (전 시장 단독)</td><td class="prod">US·EU 합성 / ROW1·CA 코드변환 (482 kg/batch)</td></tr><tr><td class="mk">Patheon</td><td>캐나다</td><td>DP·Britestock·Bottle</td><td class="prod">전 시장 Tablet·반제품·병 포장 (Primary)</td></tr><tr><td class="mk">Avara</td><td>미국</td><td>DP 제조 (US 전용)</td><td class="prod">US 시장 전 함량 Tablet</td></tr><tr><td class="mk">PCI CA</td><td>캐나다</td><td>Blister Strip·Card</td><td class="prod">US·CN Blister 제조·조립</td></tr><tr><td class="mk">PCI US</td><td>미국</td><td>Bottle 포장</td><td class="prod">Avara Tablet 전용 (50–200mg)</td></tr></tbody></table>
+    <tbody><tr><td class="mk">Lianhe</td><td>中 · 중국</td><td>RSM 제조</td><td class="prod">YKP1941 (200 kg/batch)</td></tr><tr><td class="mk">Wisdom</td><td>中 · 중국</td><td>RSM 제조</td><td class="prod">YKP1941 (180 kg/batch)</td></tr><tr style="background:rgba(255,107,131,.08)"><td class="mk">SK biotek</td><td>韓 · 한국</td><td>API 합성 (전 시장 단독) <span class="lvb single">단독</span></td><td class="prod">US·EU 합성 / ROW1·CA 코드변환 (482 kg/batch)</td></tr><tr><td class="mk">Patheon</td><td>캐나다</td><td>DP·Britestock·Bottle</td><td class="prod">전 시장 Tablet·반제품·병 포장 (Primary)</td></tr><tr><td class="mk">Avara</td><td>미국</td><td>DP 제조 (US 전용)</td><td class="prod">US 시장 전 함량 Tablet</td></tr><tr><td class="mk">PCI CA</td><td>캐나다</td><td>Blister Strip·Card</td><td class="prod">US·CN Blister 제조·조립</td></tr><tr><td class="mk">PCI US</td><td>미국</td><td>Bottle 포장</td><td class="prod">Avara Tablet 전용 (50–200mg)</td></tr></tbody></table>
   </div>
 </div>
 <div class="foot">
-  <b>핵심 흐름</b> &nbsp;중국(RSM, Lianhe·Wisdom) → 한국(API, SK biotek) → 캐나다·미국(DP·SP·FP, Patheon·Avara·PCI) → 10개 시장.<br>
+  <b style="color:#FF8095">⚠ 단일 의존</b> &nbsp;전 시장 API는 SK biotek(SKBT) 한 곳에서 단독 합성됩니다 (Single API Supplier).<br>
+  <b>핵심 흐름</b> &nbsp;중국(RSM, Lianhe·Wisdom) → 한국(API, <b style="color:#FF8095">SK biotek 단독</b>) → 캐나다·미국(DP·SP·FP, Patheon·Avara·PCI) → 10개 시장.<br>
   <b>공급 레벨 차등</b> &nbsp;완제품(FP) 2: US·China · 정제(DP) 3: Hong Kong·Canada·Israel · 원료(API) 5: EU·Japan·LATAM·MENA·Korea.<br>
   <b>API 코드변환</b> &nbsp;US API→ROW1, EU API→CA는 물리 공정 없는 코드 변환. <b>Bottle</b>은 직접 또는 Britestock 경유 2경로(택1).<br>
   <span style="font-size:12px">출처 · Cenobamate BOM Tree v1 (RSM 3 · API 4 · DP 27 · Semi-FP 12 · FP 14 = 60개 자재)</span>
